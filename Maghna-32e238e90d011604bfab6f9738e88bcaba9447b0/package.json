@@ -1,0 +1,82 @@
+{
+  "name": "expo-template-tabs",
+  "description": "The Tab Navigation project template includes several example screens.",
+  "version": "36.0.2",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "web": "expo start --web",
+    "eject": "expo eject",
+    "test": "jest --watchAll"
+  },
+  "jest": {
+    "preset": "jest-expo"
+  },
+  "dependencies": {
+    "@expo/samples": "~36.0.0",
+    "@expo/vector-icons": "github:expo/vector-icons",
+    "@google-cloud/text-to-speech": "^2.3.0",
+    "@paraboly/react-native-report-modal": "0.0.12",
+    "@react-native-community/async-storage": "^1.8.1",
+    "@react-native-community/masked-view": "0.1.5",
+    "@react-navigation/native": "^5.0.9",
+    "@react-navigation/stack": "^5.1.1",
+    "@react-navigation/web": "~1.0.0-alpha.9",
+    "axios": "^0.19.2",
+    "expo": "~36.0.0",
+    "expo-asset": "~8.0.0",
+    "expo-av": "^8.0.0",
+    "expo-background-fetch": "~8.0.0",
+    "expo-constants": "~8.0.0",
+    "expo-font": "~8.0.0",
+    "expo-linear-gradient": "^8.0.0",
+    "expo-location": "^8.1.0",
+    "expo-task-manager": "^8.0.0",
+    "expo-web-browser": "~8.0.0",
+    "firebase": "^7.11.0",
+    "moment": "^2.24.0",
+    "native-base": "^2.13.8",
+    "popup-ui": "^1.0.10",
+    "react": "~16.9.0",
+    "react-dom": "~16.9.0",
+    "react-moment": "^0.9.7",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-36.0.0.tar.gz",
+    "react-native-elements": "^1.2.7",
+    "react-native-flip-toggle-button": "^1.0.8",
+    "react-native-geo-fencing": "^0.1.0",
+    "react-native-gesture-handler": "~1.5.0",
+    "react-native-iphone-x-helper": "^1.2.1",
+    "react-native-maps": "0.26.1",
+    "react-native-modal": "^11.5.6",
+    "react-native-progress-circle": "^2.1.0",
+    "react-native-reanimated": "~1.4.0",
+    "react-native-safe-area-context": "0.6.0",
+    "react-native-screens": "2.0.0-alpha.12",
+    "react-native-timer": "^1.3.6",
+    "react-native-tts": "^3.1.1",
+    "react-native-web": "~0.11.7",
+    "react-navigation": "^4.2.2",
+    "react-navigation-stack": "~1.10.3",
+    "react-navigation-tabs": "^2.8.2",
+    "react-redux": "^7.2.0",
+    "redux": "^4.0.5",
+    "undefined": "github:expo/vector-icons"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.8.7",
+    "babel-preset-expo": "~8.0.0",
+    "jest-expo": "~36.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fahdaalromi/Maghna.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fahdaalromi/Maghna/issues"
+  },
+  "homepage": "https://github.com/fahdaalromi/Maghna#readme"
+}
