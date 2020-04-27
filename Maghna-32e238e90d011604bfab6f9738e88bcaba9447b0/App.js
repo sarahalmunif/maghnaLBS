@@ -10,6 +10,8 @@ import {
   TouchableHighlight,
   Text,
 } from "react-native";
+import axios from "axios";
+
 import { Ionicons } from "@expo/vector-icons";
 import AppNavigator from "./navigation/AppNavigator";
 //import Header from './components/Header';
@@ -139,15 +141,21 @@ TaskManager.defineTask('locationTask', async ({ data, error }) => {
                   if(child.val().actionsID[0]==='001'){
 
                       console.log("the light must be turend on user entern")
-                   //   axios.put('http://192.168.100.14/api/1DQ8S2CiZCGaI5WT7A33pyrL19Y47F2PmGiXnv20/lights/3/state',
-                   //   {'on':true} )
-                  // .then(res => res.json())
+                      axios.put('http://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
+                      {on:true} )
+                   
+                   .catch((error) => {
+                    console.log();
+                  });
                     }
                     else {
                       console.log("the light must be turend off user entern")
-                   //   axios.put('http://192.168.100.14/api/1DQ8S2CiZCGaI5WT7A33pyrL19Y47F2PmGiXnv20/lights/3/state',
-                   //   {'on':false} )
-                  //  .then(res => res.json())
+                      axios.put('http://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
+                      {on:false} )
+                    
+                    .catch((error) => {
+                      console.log();
+                    });
                     }
               }
 
@@ -158,15 +166,15 @@ TaskManager.defineTask('locationTask', async ({ data, error }) => {
                   console.log("inside leave home")
                   if(child.val().actionsID[0]==='001'){
                       console.log("the light must be turend on user leave")
-                    // axios.put('http://192.168.100.14/api/1DQ8S2CiZCGaI5WT7A33pyrL19Y47F2PmGiXnv20/lights/3/state',
-                     // {'on':true} )
-                   // .then(res => res.json())
+                     axios.put('http://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
+                      {'on':true} )
+                    
                     }
                     else {
                       console.log("the light must be turend off user leave")
-                     // axios.put('http://192.168.100.14/api/1DQ8S2CiZCGaI5WT7A33pyrL19Y47F2PmGiXnv20/lights/3/state',
-                     // {'on':false} )
-                   // .then(res => res.json())
+                     axios.put('http://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
+                      {'on':false} )
+                    
                     }
 
                 }

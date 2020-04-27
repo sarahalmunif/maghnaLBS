@@ -423,10 +423,10 @@ class SpeechToTextButton extends Component {
     this.analysis("001");
       axios
         .put(
-          "http://192.168.8.104/api/UFWVG8q5nDKl1Icqatr5Nwjx3G4aFQRxeJ8GsnZi/lights/1/state",
+          "http://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state",
           { on: true }
         )
-        .then((res) => res.json())
+       // .then((res) => res.json())
         .then((res) => {
           RTCCertificate;
           // console.log(res)
@@ -455,10 +455,10 @@ class SpeechToTextButton extends Component {
         });
       axios
         .put(
-          "http://192.168.8.104/api/UFWVG8q5nDKl1Icqatr5Nwjx3G4aFQRxeJ8GsnZi/lights/1/state",
+          "http://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state",
           { on: false }
         )
-        .then((res) => res.json())
+       // .then((res) => res.json())
         .then((res) => {
           // console.log(res)
         })
@@ -596,7 +596,7 @@ alert("Hello in if statement");
       // this.save_button_action(0)
     }
 
-    if(transcript == "الوضع الصباحي" ){
+   /* if(transcript == "الوضع الصباحي" ){
       routineArr.push('morning routine');
       console.log(" mmmmmoooorrrning");
   }
@@ -921,11 +921,10 @@ if(transcript == "حفظ")
   console.log("sssaaaaavvveee");
   this.routineSpeechValidate();
 
-}
+}*/
   };
 
-
-
+/*
   async routineSpeechValidate(){
     
     if(routineArr[0]==='morning routine')
@@ -1024,7 +1023,8 @@ if(transcript == "حفظ")
 
 
 }
-
+*/
+/*
 save_button_action(index) {
   var lat , lng , i;
  
@@ -1284,7 +1284,7 @@ save_button_action(index) {
      
   }
 }
-
+*/
 
   startRecording = async () => {
     // console.log(recording)
