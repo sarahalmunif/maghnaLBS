@@ -21,11 +21,15 @@ import { AsyncStorage } from "react-native";
 import * as TaskManager from 'expo-task-manager';
 import NavigationService from "./navigation/NavigationService";
 import * as firebase from 'firebase';
+
+
+import * as BackgroundFetch from 'expo-background-fetch';
 /*
  *  Redux for state management
  */
 import { Provider } from "react-redux";
 import configureStore from "./redux/createStore";
+const BACKGROUND_FETCH_TASK = 'background-fetch';
 let store = configureStore();
 
 export default function App(props) {
@@ -111,6 +115,115 @@ export default function App(props) {
     );
   }
 }
+TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
+  const now = Date.now();
+ 
+  console.log(`Got background fetch call at date: ${new Date(now).toISOString()}`);
+ 
+  var hourInt;
+  var hour24 ; 
+ var user = firebase.auth().currentUser;
+ var actionArr =[] ;
+ var date = new Date();
+var hour = date.getHours();
+var mins = date.getMinutes();
+
+console.log(hour + ":" + mins)
+var timez = date.toLocaleTimeString();
+console.log("the Time:"+ timez);
+console.log('am/pm');
+console.log('after ' + timez.substring(0,2))
+var timeH = timez.substring(0,2);
+hourInt = parseInt(timeH);
+console.log('hourGlobal Task manager :'+hourInt);
+if ( timez.substring(8) == 'PM' || hour == 0 ){
+ 
+
+ hour24= 12+  hourInt;
+ console.log("hour in manager " + hour24);
+
+}
+else {
+  hour24 = hour ; 
+}
+
+var timeM= timez.substring(2,4);
+var minInt = parseInt(mins);
+;
+
+
+var hourInRiyadh;
+if(hourInt == 22 ){
+
+ hourInRiyadh =1;
+}
+else if ( hourInt == 23){
+ hourInRiyadh = 2 ;
+}
+else if ( hourInt ==24){
+ hourInRiyadh = 3;
+}
+else {
+ var hourInRiyadh = hourInt +3 ;
+ console.log('Riyadh'+hourInRiyadh)
+}
+
+//var user = context.auth;
+ var routineArr  = [];
+
+var routineTrig = [];
+
+var j,i;
+var routineName ; 
+var routineTime  ; 
+var RminInt ,  RhourInt;
+
+firebase.database().ref('/routine').once("value").then((snapshot)=>{
+console.log("enter to database");
+
+
+snapshot.forEach(item => {
+ var temp = item.val();
+ actionArr = temp.actionsID;
+ console.log(actionArr);
+ routineName = temp.name;
+ console.log(routineName)
+ routineTime= temp.time;
+ hour = routineTime.substring (0,2);
+ minute = routineTime.substring(3);
+ RminInt = parseInt(minute);
+ RhourInt = parseInt(hour);
+ console.log('data' + RhourInt + ":" + RminInt);
+ console.log("the time in r " + hour24 + "min" + mins)
+ if(hour24 == RhourInt && RminInt == mins && temp.status == 1&& temp.userID == user.uid){
+     if (temp.actionsID.indexOf("001")!= -1){
+         console.log("It is true id is 001")
+         axios.put('http://192.168.100.14/api/1DQ8S2CiZCGaI5WT7A33pyrL19Y47F2PmGiXnv20/lights/3/state',
+          {on:true} )
+        .then(res => res.json())
+        console.log("I turn on");
+        this.setState({ isOn: true });
+        Helper.setLightStatus(true);
+     }
+     else if(temp.actionsID.indexOf("002")!= -1) {
+      console.log("It is true id is 002")
+         axios.put('http://192.168.100.14/api/1DQ8S2CiZCGaI5WT7A33pyrL19Y47F2PmGiXnv20/lights/3/state',
+         {on:false} )
+       .then(res => res.json())
+       console.log("I turn off");
+       this.setState({ isOn: false });
+        Helper.setLightStatus(false);
+     }
+ }
+
+ 
+}); //end forEach ..
+});
+
+
+      
+  return BackgroundFetch.Result.NewData;
+});
 TaskManager.defineTask('locationTask', async ({ data, error }) => {
   if (error) {
     // Error occurred - check `error.message` for more details.

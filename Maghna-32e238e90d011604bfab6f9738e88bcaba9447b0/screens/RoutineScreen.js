@@ -1057,6 +1057,7 @@ return polygon
 
     }
 
+    
     render() {
         return (
 
@@ -1648,6 +1649,8 @@ return polygon
         
     }
 
+
+
 }
     
 
@@ -1678,6 +1681,29 @@ RoutineScreen.navigationOptions = ({navigation})=> ({
 
 
 const styles = StyleSheet.create({
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        marginTop: 22
+      },
+      modalView: {
+        margin: 20,
+        backgroundColor: "white",
+        borderRadius: 20,
+        padding: 35,
+        alignItems: "center",
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5
+      },
+     
+    
   container: {
     
     //flex: 1,
@@ -1698,6 +1724,26 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#2287ac',
     marginLeft:80,
+    marginBottom:10,
+    
+  },
+  modelStyle: {
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#8abbc6',
+    marginLeft:10,
+    
+    marginBottom:20,
+    
+  },
+  routineTimeStyle: {
+    fontSize: 12.25,
+    textAlign: 'right',
+    fontWeight: 'bold',
+    color: '#8abbc6',
+    marginLeft:80,
+   
     marginBottom:20,
     
   },
@@ -1759,8 +1805,9 @@ const styles = StyleSheet.create({
 
  buttonContainer: {
   //height:100,
- marginRight:-100,
+ marginRight:-70,
   flexDirection: 'row',
+  
   justifyContent: 'center',
   alignItems: 'center',
  //marginBottom:30,
