@@ -19,15 +19,15 @@ import { AsyncStorage } from "react-native";
 import NavigationService from "./navigation/NavigationService";
 import * as firebase from 'firebase';
 
-
+import * as TaskManager from 'expo-task-manager';
 import * as BackgroundFetch from 'expo-background-fetch';
 /*
  *  Redux for state management
  */
 import { Provider } from "react-redux";
-import configureStore from "./redux/createStore";
+//import configureStore from "./redux/createStore";
 const BACKGROUND_FETCH_TASK = 'background-fetch';
-let store = configureStore();
+//let store = configureStore();
 
 // import configureStore from "./redux/createStore";
  

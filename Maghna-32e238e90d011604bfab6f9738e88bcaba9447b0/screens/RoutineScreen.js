@@ -1608,10 +1608,10 @@ return polygon
                                 </ScrollView>
                                 <View style = {{width: '100%', flexDirection: 'row', justifyContent: 'space-around'}}>
                                     <TouchableHighlight style={[styles.buttonContainer, styles.sTButton,{color: '#8abbc6',}]} onPress={() => this.save_button_action(3)} >
-                                        <Text style={styles.signUpText,{color: '#8abbc6',}}> حفظ </Text>
+                                        <Text style={styles.signUpText,{color: '#8abbc6',}}> حـفـظ </Text>
                                     </TouchableHighlight>
                                     <TouchableHighlight style={[styles.buttonContainer, styles.sTButton]} onPress={() => this.setState({date_picker_display: true})} >
-                                        <Text style={styles.signUpText}> المؤقت </Text>
+                                        <Text style={styles.signUpText}> الـمـؤقـت </Text>
                                     </TouchableHighlight>
                                     <TouchableHighlight style={[styles.buttonContainer, styles.sTButton]} onPress={() => this.cancelSave ()} >
                                         <Text style={styles.signUpText}> إلـغـاء </Text>

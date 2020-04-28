@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {
-  StyleSheet,
+  StyleSheet,AppState,
   View,
   Platform,
   AsyncStorage,
@@ -20,11 +20,12 @@ import moment from "moment";
 const rnTimer = require("react-native-timer");
 import { connect } from 'react-redux';
 import { updateToggle } from './actions/toggle'
-
+import * as TaskManager from 'expo-task-manager';
+import * as BackgroundFetch from 'expo-background-fetch';
 import { Alert } from 'react-native';
 import firebaseInitial from './constants/FireBase.js';
-import configureStore from "./redux/createStore";
-
+//import configureStore from "./redux/createStore";
+const BACKGROUND_FETCH_TASK = 'background-fetch';
 const recordingOptions = {
   android: {
     extension: ".m4a",
@@ -81,6 +82,9 @@ class SpeechToTextButton extends Component {
       isFetching: false,
       isRecording: false,
       transcript: "",
+      appState: AppState.currentState,
+      status: null, //status for backfetch
+      isRegistered: false,
       //This is the dueation
       //this variable here in STTButton I use to store the duration in seconds in
       curTime: 0,
@@ -159,8 +163,49 @@ class SpeechToTextButton extends Component {
       setTimeout(resolve, ms);
     });
   }
+  handleAppStateChange = nextAppState => {
+    console.log('enter handle');
+    if (nextAppState === 'active') {
 
+      this.checkStatusAsync();
+    }
+  };
+  async checkStatusAsync() {
+    console.log('check!');
+    try {
+
+        console.log("enter if register");
+        await BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
+          minimumInterval: 60, // 1 minute
+        });
+        BackgroundFetch.setMinimumIntervalAsync(60);
+
+    }
+    catch(error){
+      console.log("saadly" + error);
+    }
+    BackgroundFetch.setMinimumIntervalAsync(60);
+    const status = await BackgroundFetch.getStatusAsync();
+    const isRegistered = await TaskManager.isTaskRegisteredAsync(BACKGROUND_FETCH_TASK);
+    console.log({status, isRegistered});
+    this.setState({ status, isRegistered });
+    try {
+      if(!this.state.isRegistered || this.state.isRegistered){
+        console.log("enter if register");
+        await BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
+          minimumInterval: 60, // 1 minute
+        });
+        BackgroundFetch.setMinimumIntervalAsync(60);
+      }
+    }
+    catch(error){
+      console.log("saadly" + error);
+    }
+
+  }
   async componentDidMount() {
+    AppState.addEventListener('change', this._handleAppStateChange);
+    AppState.addEventListener('change', this.handleAppStateChange);
     const firebaseConfig = {
 
       apiKey: "AIzaSyCsKoPxvbEp7rAol5m-v3nvgF9t8gUDdNc",
