@@ -1,0 +1,2 @@
+
+export const UPDATE_TOGGLE = 'UPDATE_TOGGLE';

@@ -45,6 +45,8 @@ export default class reportScreen extends Component {
     
     async componentDidMount(){
         // making sure that the speeches are not interleaved
+
+        
         this.didBlurSubscription = this.props.navigation.addListener(
             'didBlur',
             () => soundObject.unloadAsync()
@@ -178,12 +180,11 @@ export default class reportScreen extends Component {
         try {     
             const curTime = await AsyncStorage.getItem('currentTime');
             const billValue = await AsyncStorage.getItem('amount');
-            const amount =  JSON.parse(billValue).value; //this is amount. how do i calculate using this?
-            if (curTime !== null && amount !==  0 ) {
+            const amount =  JSON.parse(billValue).value;
+            if (amount >0  ) {
        // We choose to deal with the seconds as hours but we divide it by 6 for reasonable duration for testing purpose
                 let workingHours =curTime/20 ;
-                let bill = amount //i thinsk this is amount right? please check
-                // This is the local amount I want profile percent to be read 
+                let bill = amount 
                 let totalConsuming;
                 let watts=40;
 
@@ -226,9 +227,6 @@ export default class reportScreen extends Component {
                 this.setState({show_shape:false});
             }
 
-        //    
-        // this.getAudio(profile_percent) ;it is wrong
-        //what is it? what? it is not reading
         } catch (error) { 
             // Error retrieving data
             this.setState({show_shape:false});

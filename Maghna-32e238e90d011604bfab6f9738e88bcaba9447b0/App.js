@@ -10,15 +10,12 @@ import {
   TouchableHighlight,
   Text,
 } from "react-native";
-import axios from "axios";
-
 import { Ionicons } from "@expo/vector-icons";
 import AppNavigator from "./navigation/AppNavigator";
 //import Header from './components/Header';
 import STTButton from "./STTButton";
 import global from "./global";
 import { AsyncStorage } from "react-native";
-import * as TaskManager from 'expo-task-manager';
 import NavigationService from "./navigation/NavigationService";
 import * as firebase from 'firebase';
 
@@ -32,6 +29,9 @@ import configureStore from "./redux/createStore";
 const BACKGROUND_FETCH_TASK = 'background-fetch';
 let store = configureStore();
 
+// import configureStore from "./redux/createStore";
+ 
+import store from './store/index';
 export default function App(props) {
   const [displayMic, setDisplayMic] = useState(false);
   const [buttonDisplay, setButtonDisplay] = useState(false);
