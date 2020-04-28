@@ -248,7 +248,7 @@ class SpeechToTextButton extends Component {
         if(hour24 == RhourInt && RminInt == mins && temp.status == 1&& temp.userID == user.uid){
             if (temp.actionsID.indexOf("001")!= -1){
                 console.log("It is true id is 001")
-                axios.put('http://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
+                axios.put('https://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
                  {on:true} )
                .then(res => res.json())
                console.log("I turn on");
@@ -256,7 +256,7 @@ class SpeechToTextButton extends Component {
                Helper.setLightStatus(true);
             }
             else if(temp.actionsID.indexOf("002")!= -1) {
-                axios.put('http://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
+                axios.put('https://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
                 {on:false} )
               .then(res => res.json())
               this.setState({ isOn: false });
@@ -522,7 +522,7 @@ class SpeechToTextButton extends Component {
     this.analysis("001");
       axios
         .put(
-          "http://192.168.8.104/api/UFWVG8q5nDKl1Icqatr5Nwjx3G4aFQRxeJ8GsnZi/lights/1/state",
+          "https://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state",
           { on: true }
         )
         .then((res) => res.json())
@@ -554,7 +554,7 @@ class SpeechToTextButton extends Component {
         });
       axios
         .put(
-          "http://192.168.8.104/api/UFWVG8q5nDKl1Icqatr5Nwjx3G4aFQRxeJ8GsnZi/lights/1/state",
+          "https://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state",
           { on: false }
         )
         .then((res) => res.json())
