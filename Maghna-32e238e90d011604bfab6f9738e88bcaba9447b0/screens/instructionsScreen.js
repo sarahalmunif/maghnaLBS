@@ -179,7 +179,7 @@ export default class instructionsScreen extends Component {
                 <View style={styles.articleView}>
                   <Text style={styles.articleTitle}>عرض التقارير </Text>
                   <Text style={styles.articleDescription}>
-                    لعرض الاجهزه المتصله يجب عليك:
+                    لعرض التقارير يجب عليك:
                     قول "التقرير"
                     يمكنك ايضاً عرضها عن طريق النقر على خانه "التقارير"
                 </Text>
