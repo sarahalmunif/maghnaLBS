@@ -1,5 +1,5 @@
 import React ,{ Component } from 'react';
-import { ScrollView,
+import { ScrollView,Modal,
  StyleSheet,
  Text,
  View,
@@ -28,7 +28,8 @@ export default class SignUP extends Component{
   longitude:0,
   amount:0,
   isActive:true,
-
+  info:"",
+  saveModal:false,
 
   passwordBorder:'#3E82A7',
   conPasswordBorder:'#3E82A7',
@@ -178,7 +179,20 @@ identicalPass = (password) => {
 
   }
 
-
+  showSaveModal = () => {
+    console.log('showModal')
+  this.setState({
+  
+      
+    saveModal: true
+  });
+  setTimeout(() => {
+    this.setState({
+     
+      saveModal:false
+    })
+    }, 4000);
+}
 handelSignUp =() =>{
 
   if (this.state.name == '' || this.state.email == ''||this.state.password == ''||this.state.confPassword=='') {
@@ -259,14 +273,25 @@ handelSignUp =() =>{
     this.password.clear();
     this.email.clear();
     this.confPassword.clear();
-    Alert.alert("تم التسجيل بنجاح، تفقد بريدك الإلكتروني")
+    this.setState({
+      info:"تم التسجيل بنجاح، تفقد بريدك الإلكتروني لغرض تفعيل الحساب",
+    
+
+  })
+  this.showSaveModal();
+    //Alert.alert("تم التسجيل بنجاح، تفقد بريدك الإلكتروني")
 
     })
 
   .catch((error) => {
 
     console.log(error.message)
-    Alert.alert("نعتذر، البريد الإلكتروني مسجل مسبقًا")
+    this.setState({
+      info:"نعتذر ، البريد الإلكتروني مسجل مسبقاٌ",
+    
+
+  })
+  this.showSaveModal();
     this.setState({formErrorMsg: 'نعتذر، البريد الإلكتروني مسجل مسبقًا'})
 
   })
@@ -411,6 +436,21 @@ onChangeText={(text) => {
 </ImageBackground>
 
   </View>
+  <View>
+        <Modal
+                               animationType="slide"
+                                 transparent={true}
+                                 visible={this.state.saveModal}
+                                 onRequestClose={() => {
+                                    console.log('Modal has been closed.');}}>
+                                   
+                                <View style={styles.centeredView}>
+                              <View style={styles.modalView}>
+                                 <Text style={styles.modelStyle}>{this.state.info}</Text>
+                             </View>
+                              </View>
+                                    </Modal>
+                                    </View>
 
   </View>
 
@@ -440,7 +480,37 @@ SignUP.navigationOptions = ({navigation})=> ({
 );
 
 const styles = StyleSheet.create({
-
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  modelStyle: {
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#8abbc6',
+    marginLeft:10,
+    
+    marginBottom:20,
+    
+  },
 
   header:{
     marginTop:130,

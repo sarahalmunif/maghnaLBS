@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import {
-  StyleSheet,
+  Modal, StyleSheet,
   ActivityIndicator, Text, View, Image,
   Alert, TouchableOpacity
 } from 'react-native';
@@ -22,85 +22,185 @@ import NavigationService from "../navigation/NavigationService";
 
 export default class HomeScreen extends Component {
   async checkRoutine() {
-
+var i =0;
     let user = firebase.auth().currentUser;
     let userRoutineArr = [];
-    let routineLeave = 'leave home';
+    let routineLeave = 'leave routine';
     let routineCome = 'come routine';
     let routineMornig = 'morning routine';
     let routineNight = 'night routine';
+    var status1 , status2 , status3 , status4 ; 
     firebase.database().ref('/routine').once("value", snapshot => {
       snapshot.forEach(item => {
         let temp = item.val();
         if (temp.userID == user.uid) {
-          console.log("yes have user1");
+       
           userRoutineArr.push(temp.name);
           console.log(temp.name);
         }//end if
+      });
         let theId;
         let nameR;
         let statusR;
-        if (userRoutineArr.indexOf(routineLeave) != -1 || userRoutineArr.indexOf(routineCome) != -1
-          || userRoutineArr.indexOf(routineMornig) != -1 || userRoutineArr.indexOf(routineNight) != -1) {
-          console.log("Trueee");
-          firebase.database().ref('/routine').once("value", (snapshot) => {
-            snapshot.forEach(item => {
-
-              let temp = item.val();
-              console.log(temp);
-              if (temp.userID == user.uid && (temp.name == routineMornig || temp.name == routineNight
-                || temp.name == routineLeave || temp.name == routineCome)) {
-                console.log("in if");
-                theId = item.key;
-                nameR = temp.name;
-              }
-            });
-            console.log('outside if');
-            console.log('the' + theId);
+        console.log(userRoutineArr + 'array');
+        for (i = 0 ; i <userRoutineArr.length ; i++){
+          switch (userRoutineArr[i]){
+            case routineLeave : 
             firebase.database().ref('/routine').once("value", (snapshot) => {
-              console.log('in snapshot');
               snapshot.forEach(item => {
-                console.log('in for each');
-                if (item.key == theId) {
-                  console.log("true second");
-                  let temp = item.val();
+  
+                let temp = item.val();
+             
+                if (temp.userID == user.uid && 
+                  temp.name == routineLeave ) {
+               
+                  theId = item.key;
+                  nameR = temp.name;
                   statusR = temp.status;
-                  console.log('theS' + statusR);
-
-
                 }
-
-                console.log('now' + statusR)
-                if (nameR == 'leave routine' && statusR == 1) {
-                  const newState = !this.state.toggle3;
-                  this.setState({ toggle3: newState })
-                }
-                if (nameR == 'come routine' && statusR == 1) {
-                  const newState = !this.state.toggle1;
-                  this.setState({ toggle1: newState })
-
-                }
-                if (nameR == 'morning routine' && statusR == 1) {
-                  const newState = !this.state.toggle2;
-                  this.setState({ toggle2: newState })
-                }
-                if (nameR == 'night routine' && statusR == 1) {
-                  const newState = !this.state.toggle4;
-                  this.setState({ toggle4: newState })
-                }
-
-
               });
-            });
+            
+           
+                 
+                  if (nameR == 'leave routine' && statusR == 1) {
+                    console.log('enter leave');
+                    status3 = true; 
+                   
+                    this.setState({ toggle3: status3 })
+                  }
+                
+  
+  
+              
+  
+  
+  
+            });//end forEach
+            break ; 
+            case routineCome : 
+            firebase.database().ref('/routine').once("value", (snapshot) => {
+              snapshot.forEach(item => {
+  
+                let temp = item.val();
+             
+                if (temp.userID == user.uid && 
+                  temp.name == routineCome ) {
+                  
+                  theId = item.key;
+                  nameR = temp.name;
+                  statusR = temp.status;
+                }
+              });
+            
+              
+          
+                  if (nameR == 'come routine' && statusR == 1) {
+                    console.log('come leave');
+                    status1 = true;
+                    
+                    this.setState({ toggle1: status1 })
+                  }
+                
+  
+  
+              
+              
+  
+  
+            });//end forEach
+            break; 
+            case routineMornig: 
+            firebase.database().ref('/routine').once("value", (snapshot) => {
+              snapshot.forEach(item => {
+  
+                let temp = item.val();
+             
+                if (temp.userID == user.uid && 
+                  temp.name == routineMornig ) {
+                 
+                  theId = item.key;
+                  nameR = temp.name;
+                  statusR = temp.status;
+                }
+              });
+            
+              
+             
+  
+               
+                  if (nameR == 'morning routine' && statusR == 1) {
+                    console.log('morning leave');
+                    status2 = true;
+                    
+                    this.setState({ toggle2: status2 })
+                  }
+                
+  
+  
+                
+             
+  
+  
+            });//end forEach   
+            break; 
+            case routineNight:
+              firebase.database().ref('/routine').once("value", (snapshot) => {
+                snapshot.forEach(item => {
+    
+                  let temp = item.val();
+               
+                  if (temp.userID == user.uid && 
+                    temp.name == routineNight ) {
+                  
+                    theId = item.key;
+                    nameR = temp.name;
+                  }
+                });
+              
+             
+                firebase.database().ref('/routine').once("value", (snapshot) => {
+            
+                  snapshot.forEach(item => {
+                   
+                    if (item.key == theId) {
+                     
+                      let temp = item.val();
+                      statusR = temp.status;
+                      
+    
+    
+                    }
+    
+                    
+                    if (nameR == 'night routine' && statusR == 1) {
+                      console.log('night leave');
+                      status4 = true;
+                      
+                      this.setState({ toggle4: status4 })
+                    }
+                  
+    
+    
+                  });
+                });
+    
+    
+              });//end forEach 
 
-
-          });//end forEach
-
+          }
         }
+       
+       
         //end snapshot..
-      });
+      
     });
-
+console.log(status3);
+    this.setState({
+      toggle4: status4 , 
+      toggle3:status3 , 
+      toggle2:status2,
+      toggle1:status1,
+    })
   }
 
 
@@ -112,9 +212,10 @@ export default class HomeScreen extends Component {
   }
 
 
-
+ 
 
   async componentDidMount() {
+    console.log('enter did')
     this.checkRoutine();
     this.props.navigation.setParams({
       headerLeft: (<TouchableOpacity onPress={this.handelSignOut}>
@@ -429,7 +530,20 @@ export default class HomeScreen extends Component {
   }
 
 
-
+  showSaveModal = () => {
+    console.log('showModal')
+  this.setState({
+  
+      
+    saveModal: true
+  });
+  setTimeout(() => {
+    this.setState({
+     
+      saveModal:false
+    })
+    }, 3000);
+}
 
 
   handelSignOut = () => {
@@ -479,7 +593,13 @@ export default class HomeScreen extends Component {
 
     super(props);
     this.state = {
-      toggle: false
+      toggle1:false,
+      toggle2:false,
+      toggle3:false,
+      toggle4:false,
+      toggle: false,
+      info:"",
+      saveModal:false,
     };
     super(props)
     this.recording = null
@@ -487,6 +607,7 @@ export default class HomeScreen extends Component {
       isFetching: false,
       isRecording: false,
       transcript: '',
+      saveModal:false,
     }
 
   }
@@ -524,8 +645,15 @@ export default class HomeScreen extends Component {
 
         });//end forEach
         if (userRoutineArr.indexOf(routineName) == -1) {
+          this.setState({
+            info:"عذراً\n"+' لم تقم بإنشاء وضع العودة إلى المنزل من قبل ، عليك أولاً إنشاؤه',
+          
+    
+        })
+      
+        
+        this.showSaveModal();
 
-          Alert.alert("عذراً", " لم تقم بإنشاء وضع العودة إلى المنزل من قبل ، عليك أولاً إنشاؤه");
           this.setState({ toggle1: !newState })
 
 
@@ -589,8 +717,15 @@ export default class HomeScreen extends Component {
 
         });//end forEach
         if (userRoutineArr.indexOf(routineName) == -1) {
-
-          Alert.alert("عذراً", " لم تقم بإنشاء الوضع الصباحي من قبل ، عليك أولاً إنشاؤه");
+          this.setState({
+            info:"عذراً\n"+ "  لم تقم بإنشاء الوضع الصباحي من قبل ، عليك أولاً إنشاؤه",
+            
+    
+        })
+      
+        
+        this.showSaveModal();
+    
           this.setState({ toggle2: !newState })
 
 
@@ -656,8 +791,15 @@ export default class HomeScreen extends Component {
 
         });//end forEach
         if (userRoutineArr.indexOf(routineName) == -1) {
-
-          Alert.alert("عذراً", " لم تقم بإنشاء وضع الخروج من المنزل من قبل ، عليك أولاً إنشاؤه");
+          this.setState({
+            info:"عذراً\n"+ "  لم تقم بإنشاء وضع الخروج من المنزل من قبل ، عليك أولاً إنشاؤه",
+            
+    
+        })
+      
+        
+        this.showSaveModal();
+         
           this.setState({ toggle3: !newState })
 
 
@@ -718,7 +860,15 @@ export default class HomeScreen extends Component {
 
         });//end forEach
         if (userRoutineArr.indexOf(routineName) == -1) {
-          Alert.alert("عذراً", " لم تقم بإنشاء الوضع المسائي من قبل ، عليك أولاً إنشاؤه");
+          this.setState({
+            info:"عذراً\n"+ "  لم تقم بإنشاء الوضع المسائي من قبل ، عليك أولاً إنشاؤه",
+            
+    
+        })
+      
+        
+        this.showSaveModal();
+       
           this.setState({ toggle4: !newState })
 
         }
@@ -762,7 +912,7 @@ export default class HomeScreen extends Component {
 
     return (
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: '#F7FAFF' }}>
-
+ 
         <TouchableOpacity
           onPress={() => NavigationService.navigate("instructions")}
           style={{ fontSize: 20, justifyContent: 'center', width: 130, height: 90, left: 100, borderRadius: 25, marginHorizontal: 1, paddingLeft: 2, paddingRight: 10, paddingTop: -150, bottom: -220, shadowOpacity: 0.3 }}>
@@ -798,7 +948,21 @@ export default class HomeScreen extends Component {
           <MaterialCommunityIcons style={{ left: 17, paddingLeft: -40, paddingRight: 5, paddingTop: 9, bottom: 90, top: -10 }} name="weather-night" size={70} color={toggle4 ? '#6FA0AF' : 'white'} ></MaterialCommunityIcons>
           <Text style={{ left: 5, paddingLeft: -40, paddingRight: 5, bottom: 90, top: -10, color: toggle4 ? '#6FA0AF' : 'white', fontWeight: 'bold', fontSize: 13 }}>الوضع المسائي</Text>
         </TouchableOpacity>
-
+        <View>
+        <Modal
+                               animationType="slide"
+                                 transparent={true}
+                                 visible={this.state.saveModal}
+                                 onRequestClose={() => {
+                                    console.log('Modal has been closed.');}}>
+                                   
+                                <View style={styles.centeredView}>
+                              <View style={styles.modalView}>
+                                 <Text style={styles.modelStyle}>{this.state.info}</Text>
+                             </View>
+                              </View>
+                                    </Modal>
+                                    </View>
         <View style={styles.container}>
           <TouchableOpacity
             onPressIn={this.startRecording}
@@ -819,6 +983,7 @@ export default class HomeScreen extends Component {
         <Image
           style={{ width: 440, height: 360, bottom: -20 }}
           source={require('./222.png')} />
+            
       </View>
     );
   }
@@ -827,6 +992,37 @@ export default class HomeScreen extends Component {
 
 
 const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  modelStyle: {
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#8abbc6',
+    marginLeft:10,
+    
+    marginBottom:20,
+    
+  },
   container: {
     flex: 1,
     backgroundColor: 'red',

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {
-  AppState,StyleSheet,
+  StyleSheet,
   View,
   Platform,
   AsyncStorage,
@@ -18,11 +18,12 @@ import { connect } from 'react-redux';
 import moment from "moment";
 // Here I use this time, I open the package
 const rnTimer = require("react-native-timer");
-import * as TaskManager from 'expo-task-manager';
-import * as BackgroundFetch from 'expo-background-fetch';
+
+
 import { Alert } from 'react-native';
 import firebaseInitial from './constants/FireBase.js';
-const BACKGROUND_FETCH_TASK = 'background-fetch';
+import configureStore from "./redux/createStore";
+
 const recordingOptions = {
   android: {
     extension: ".m4a",
@@ -77,9 +78,6 @@ class SpeechToTextButton extends Component {
       isFetching: false,
       isRecording: false,
       transcript: "",
-      appState: AppState.currentState,
-      status: null, //status for backfetch
-      isRegistered: false,
       //This is the dueation
       //this variable here in STTButton I use to store the duration in seconds in
       curTime: 0,
@@ -158,49 +156,8 @@ class SpeechToTextButton extends Component {
       setTimeout(resolve, ms);
     });
   }
-  handleAppStateChange = nextAppState => {
-    console.log('enter handle');
-    if (nextAppState === 'active') {
-     
-      this.checkStatusAsync();
-    }
-  };
-  async checkStatusAsync() {
-    console.log('check!');
-    try {
-    
-        console.log("enter if register");
-        await BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
-          minimumInterval: 60, // 1 minute
-        });
-        BackgroundFetch.setMinimumIntervalAsync(60);
-     
-    }
-    catch(error){
-      console.log("saadly" + error);
-    }
-    BackgroundFetch.setMinimumIntervalAsync(60);
-    const status = await BackgroundFetch.getStatusAsync();
-    const isRegistered = await TaskManager.isTaskRegisteredAsync(BACKGROUND_FETCH_TASK);
-    console.log({status, isRegistered});
-    this.setState({ status, isRegistered });
-    try {
-      if(!this.state.isRegistered || this.state.isRegistered){
-        console.log("enter if register");
-        await BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
-          minimumInterval: 60, // 1 minute
-        });
-        BackgroundFetch.setMinimumIntervalAsync(60);
-      }
-    }
-    catch(error){
-      console.log("saadly" + error);
-    }
-  
-  }
+
   async componentDidMount() {
-    AppState.addEventListener('change', this._handleAppStateChange);
-    AppState.addEventListener('change', this.handleAppStateChange);
     const firebaseConfig = {
 
       apiKey: "AIzaSyCsKoPxvbEp7rAol5m-v3nvgF9t8gUDdNc",
@@ -565,10 +522,10 @@ class SpeechToTextButton extends Component {
     this.analysis("001");
       axios
         .put(
-          "http://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state",
+          "http://192.168.8.104/api/UFWVG8q5nDKl1Icqatr5Nwjx3G4aFQRxeJ8GsnZi/lights/1/state",
           { on: true }
         )
-       // .then((res) => res.json())
+        .then((res) => res.json())
         .then((res) => {
           RTCCertificate;
           // console.log(res)
@@ -597,10 +554,10 @@ class SpeechToTextButton extends Component {
         });
       axios
         .put(
-          "http://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state",
+          "http://192.168.8.104/api/UFWVG8q5nDKl1Icqatr5Nwjx3G4aFQRxeJ8GsnZi/lights/1/state",
           { on: false }
         )
-       // .then((res) => res.json())
+        .then((res) => res.json())
         .then((res) => {
           // console.log(res)
         })
@@ -659,8 +616,9 @@ class SpeechToTextButton extends Component {
     }
     //starting from here all the methods and variables related to homescreen
     if (transcript == "تفعيل الوضع الصباحي") {
+      console.log('I understand')
       //_onPress2()
-
+      this.props.store.dispatch({type:'TOGGLE',index:'toggle3'});
 // LEt say hi for test ok ? 
 // Here after this executed it sticks and hanging like an infinite loop 
 // this.props.store.dispatch({type:'TOGGLE',index:'toggle3'});
@@ -738,335 +696,408 @@ alert("Hello in if statement");
       // this.save_button_action(0)
     }
 
-   /* if(transcript == "الوضع الصباحي" ){
+    if(transcript == "الوضع الصباحي" ){
       routineArr.push('morning routine');
       console.log(" mmmmmoooorrrning");
   }
 
   if(transcript == "الوضع المسائي" ){
       routineArr.push('night routine');
+      console.log("nniiiggghhtt")
   }
   if(transcript == "وضع الخروج" ){
     routineArr.push('leave routine');
+    console.log("oouuut");
 }
 
 if(transcript == "وضع العوده" ){
   routineArr.push('back routine');
+  console.log("innnnn");
+
 }
 
   if(routineArr[0]=='morning routine' || routineArr[0]=='night routine'
-   || routineArr[0]=='leave routine' ||routineArr[0]=='back routine'){
+   || routineArr[0]=='leave routine' ||routineArr[0]=='back routine')
+   {
   if(transcript == "تشغيل النور")
 {
   routineArr.push('turnOnLight');
   console.log("llllliiighhhttt");
+  console.log("the length of the aray"+routineArr.length);
+
 }
  
-if(transcript == "إغلاق النور")
+if(transcript == "ايقاف النور")
 {
   routineArr.push('turnOffLight');
+  console.log("offff")
 }
   }
 
   if (routineArr.length == 2 ){
-  if(transcipt == "الساعة الواحدة صباحاً"){
+  if(transcript == "الواحده"){
    // hours = 01
-    routineArr.push(0)
-}
- if(transcipt == "الساعة الثانية صباحاً"){
-   // hours = 02
     routineArr.push(1)
+    console.log("onneeee");
 }
-if(transcipt == "الساعة الثالثة صباحاً"){
-    //hours = 03
+ if(transcript == "الثانيه"){
+   // hours = 02
     routineArr.push(2)
 }
-if(transcipt == "الساعة الرابعة صباحاً"){
-   // hours = 04
+if(transcript == "الثالثه"){
+    //hours = 03
     routineArr.push(3)
 }
- if(transcipt == "الساعة الخامسة صباحاً"){
-   // hours = 05
+if(transcript == "الرابعه"){
+   // hours = 04
     routineArr.push(4)
 }
- if(transcipt == "الساعة السادسة صباحاً"){
-   // hours = 06
+ if(transcript == "الخامسه"){
+   // hours = 05
     routineArr.push(5)
 }
- if(transcipt == "الساعة السابعة صباحاً"){
-   // hours = 07
+ if(transcript == "السادسه"){
+   // hours = 06
     routineArr.push(6)
 }
- if(transcipt == "الساعة الثامنة صباحاً"){
-   // hours = 08
+ if(transcript == "السابعه"){
+   // hours = 07
     routineArr.push(7)
 }
-  if(transcipt == "الساعة التاسعة صباحاً"){
-   // hours = 09
+ if(transcript == "الثامنه"){
+   // hours = 08
     routineArr.push(8)
 }
- if(transcipt == "الساعة العاشرة صباحاً"){
-  //  hours = 10
+  if(transcript == "التاسعه"){
+   // hours = 09
     routineArr.push(9)
 }
-if(transcipt == "الساعة الحادية عشر صباحاً"){
-   // hours = 11
+ if(transcript == "العاشره"){
+  //  hours = 10
     routineArr.push(10)
 }
-if(transcipt == "الساعة الثانية عشر صباحاً"){
-   // hours = 12
+if(transcript == "الحاديه عشر"){
+   // hours = 11
     routineArr.push(11)
-}}
+}
+if(transcript == "الثانيه عشر"){
+   // hours = 12
+    routineArr.push(12)
+    console.log("1122222");
+}
+if(transcript == "الثالثه عشر"){
+  // hours = 12
+   routineArr.push(13)
+}
+if(transcript == "الرابعه عشر"){
+  // hours = 12
+   routineArr.push(14)
+}
+if(transcript == "الخامسه عشر"){
+  // hours = 12
+   routineArr.push(15)
+}
+if(transcript == "السادسه عشر"){
+  // hours = 12
+   routineArr.push(16)
+}
+if(transcript == "السابعه عشر"){
+  // hours = 12
+   routineArr.push(17)
+}
+if(transcript == "الثامنه عشر"){
+  // hours = 12
+   routineArr.push(18)
+}
+if(transcript == "التاسعه عشر"){
+  // hours = 12
+   routineArr.push(19)
+}
+if(transcript == "عشرون"){
+  // hours = 12
+   routineArr.push(20)
+}
+
+if(transcript == "الواحده والعشرون"){
+  // hours = 12
+   routineArr.push(21)
+}
+
+if(transcript == "الثانيه والعشرون"){
+  // hours = 12
+   routineArr.push(22)
+}
+if(transcript == "الثالثه والعشرون"){
+  // hours = 12
+   routineArr.push(23)
+}
+
+if(transcript == "الرابعه والعشرون"){
+  // hours = 12
+   routineArr.push(24)
+}
+}
 
 if(routineArr.length ==  3){
-if(transcipt == "دقيقة"){
+if(transcript == "دقيقه"){
    // mins= 01
-   routineArr.push(1) 
+   routineArr.push('01') 
 }
-if(transcipt == "دقيقتان"){
+if(transcript == "دقيقتان"){
    // mins= 02
-   routineArr.push(2) 
+   routineArr.push('02') ;
+   console.log("twwooo");
 }
-if(transcipt == "ثلاث دقائق"){
+if(transcript == "ثلاث دقائق"){
    // mins= 03
-   routineArr.push(3) 
+   routineArr.push('03') 
 }
-if(transcipt == "أربع دقائق"){
+if(transcript == "أربع دقائق"){
   //  mins= 04
-   routineArr.push(4) 
+   routineArr.push('04') 
 }
- if(transcipt == "خمس دقائق"){
+ if(transcript == "خمس دقائق"){
    // mins= 05
-   routineArr.push(5) 
+   routineArr.push('05') 
 }
-if(transcipt == "ست دقائق"){
+if(transcript == "ست دقائق"){
    // mins= 06
-   routineArr.push(6) 
+   routineArr.push('06') 
 }
- if(transcipt == "سبع دقائق"){
+ if(transcript == "سبع دقائق"){
    // mins= 07
-   routineArr.push(7) 
+   routineArr.push('07') 
 }
- if(transcipt == "ثمان دقائق"){
+ if(transcript == "ثمان دقائق"){
    // mins= 08
-   routineArr.push(8) 
+   routineArr.push('08') 
 }
- if(transcipt == "تسع دقائق"){
+ if(transcript == "تسع دقائق"){
    // mins= 09
-   routineArr.push(9) 
+   routineArr.push('09') 
 }
 
- if(transcipt == "عشر دقائق"){
+ if(transcript == "عشر دقائق"){
    // mins= 10
    routineArr.push(10) 
+   console.log("1000000");
 }
- if(transcipt == "احدى عشر دقيقة"){
+ if(transcript == "احدى عشر دقيقه"){
    // mins= 11
    routineArr.push(11) 
 }
- if(transcipt == "اثنا عشر دقيقة"){
+ if(transcript == "اثنا عشر دقيقه"){
    // mins= 12
    routineArr.push(12) 
 }
- if(transcipt == "ثلاث عشر دقيقة"){
+ if(transcript == "ثلاث عشر دقيقه"){
    // mins= 13
    routineArr.push(13) 
 }
- if(transcipt == "اربعة عشر دقيقة"){
+ if(transcript == "اربعه عشر دقيقه"){
    // mins= 14
    routineArr.push(14) 
 }
- if(transcipt == "خمسة عشر دقيقة"){
+ if(transcript == "خمسه عشر دقيقه"){
    // mins= 15
    routineArr.push(15) 
 }
-  if(transcipt == " ستة عشر دقيقة"){
+  if(transcript == "سته عشر دقيقه"){
   //  mins= 16
    routineArr.push(16) 
 }
-  if(transcipt == "سبعة عشر دقيقة"){
+  if(transcript == "سبعه عشر دقيقه"){
   //  mins= 17
    routineArr.push(17) 
 }
-  if(transcipt == "ثمانية عشر دقيقة"){
+  if(transcript == "ثمانيه عشر دقيقه"){
    // mins= 18
    routineArr.push(18) 
 }
-  if(transcipt == "تسعة عشر دقيقة"){
+  if(transcript == "تسعه عشر دقيقه"){
   //  mins= 19
    routineArr.push(19) 
 }
-   if(transcipt == " عشرون دقيقة"){
+   if(transcript == "عشرون دقيقه"){
     //mins= 20
    routineArr.push(20) 
 }
-   if(transcipt == " واحد وعشرون دقيقة"){
+   if(transcript == "واحد وعشرون دقيقه"){
    // mins= 21
    routineArr.push(21) 
 }
-if(transcipt == " اثنان وعشرون دقيقة"){
+if(transcript == "اثنان وعشرون دقيقه"){
    // mins= 22
    routineArr.push(22) 
 }
-if(transcipt == " ثلاث وعشرون دقيقة"){
+if(transcript == "ثلاث وعشرون دقيقه"){
 //mins= 23
    routineArr.push(23) 
 }
-if(transcipt == " اربعة وعشرون دقيقة"){
+if(transcript == "اربعه وعشرون دقيقه"){
    // mins= 24
    routineArr.push(24) 
 }
-if(transcipt == " خمسة وعشرون دقيقة"){
+if(transcript == "خمسه وعشرون دقيقه"){
    // mins= 25
    routineArr.push(25) 
 }
-if(transcipt == " ستة وعشرون دقيقة"){
+if(transcript == "سته وعشرون دقيقه"){
    // mins= 26
    routineArr.push(26) 
 }
-if(transcipt == " سبعة وعشرون دقيقة"){
+if(transcript == "سبعه وعشرون دقيقه"){
    // mins= 27
    routineArr.push(27) 
 }
-if(transcipt == "ثمانية وعشرون دقيقة"){
+if(transcript == "ثمانيه وعشرون دقيقه"){
    // mins= 28
    routineArr.push(28) 
 }
-if(transcipt == "تسعة وعشرون دقيقة"){
+if(transcript == "تسعه وعشرون دقيقه"){
   //  mins= 29
    routineArr.push(29) 
 }
-if(transcipt == "ثلاثون دقيقة"){
+if(transcript == "ثلاثون دقيقه"){
   //  mins= 30
    routineArr.push(30) 
+   console.log("33300000");
 }
- if(transcipt == "واحد وثلاثون دقيقة"){
+ if(transcript == "واحد وثلاثون دقيقه"){
   //  mins= 31
    routineArr.push(31) 
 }
-if(transcipt == "اثنان وثلاثون دقيقة"){
+if(transcript == "اثنان وثلاثون دقيقه"){
   //  mins= 32
    routineArr.push(32) 
 }
-if(transcipt == "ثلاث وثلاثون دقيقة"){
+if(transcript == "ثلاث وثلاثون دقيقه"){
   //  mins= 33
    routineArr.push(33) 
 }
-if(transcipt == "اربعة وثلاثون دقيقة"){
+if(transcript == "اربعه وثلاثون دقيقه"){
    // mins= 34
    routineArr.push(34) 
 }
-if(transcipt == "خمسة وثلاثون دقيقة"){
+if(transcript == "خمسه وثلاثون دقيقه"){
   //  mins= 35
    routineArr.push(35) 
 }
-if(transcipt == "ستة وثلاثون دقيقة"){
+if(transcript == "سته وثلاثون دقيقه"){
   //  mins= 36
    routineArr.push(36) 
 }
-if(transcipt == "سبعة وثلاثون دقيقة"){
+if(transcript == "سبعه وثلاثون دقيقه"){
   //  mins= 37
    routineArr.push(37) 
 }
-if(transcipt == "ثمانية وثلاثون دقيقة"){
+if(transcript == "ثمانيه وثلاثون دقيقه"){
   //  mins= 38
    routineArr.push(38) 
 }
-if(transcipt == "تسعة وثلاثون دقيقة"){
+if(transcript == "تسعه وثلاثون دقيقه"){
   //  mins= 39
    routineArr.push(39) 
 }
-if(transcipt == "اربعون دقيقة"){
+if(transcript == "اربعون دقيقه"){
   //  mins= 40
    routineArr.push(40) 
 }
-if(transcipt == "واحد واربعون دقيقة"){
+if(transcript == "واحد واربعون دقيقه"){
   //  mins= 41
    routineArr.push(41) 
 }
- if(transcipt == "اثنان واربعون دقيقة"){
+ if(transcript == "اثنان واربعون دقيقه"){
   //  mins= 42
    routineArr.push(42) 
 }
- if(transcipt == "ثلاث واربعون دقيقة"){
+ if(transcript == "ثلاث واربعون دقيقه"){
   //  mins= 43
    routineArr.push(43) 
 }
- if(transcipt == "اربعة واربعون دقيقة"){
+ if(transcript == "اربعه واربعون دقيقه"){
   //  mins= 44
    routineArr.push(44) 
 }
- if(transcipt == "خمسة واربعون دقيقة"){
+ if(transcript == "خمسه واربعون دقيقه"){
   //  mins= 45
    routineArr.push(45) 
 }
- if(transcipt == "ستة واربعون دقيقة"){
+ if(transcript == "سته واربعون دقيقه"){
    // mins= 46
    routineArr.push(46) 
 }
- if(transcipt == "سبعة واربعون دقيقة"){
+ if(transcript == "سبعه واربعون دقيقه"){
   //  mins= 47
    routineArr.push(47) 
 }
- if(transcipt == "ثمانية واربعون دقيقة"){
+ if(transcript == "ثمانيه واربعون دقيقه"){
   //  mins= 48
    routineArr.push(48) 
 }
- if(transcipt == "تسعة واربعون دقيقة"){
+ if(transcript == "تسعه واربعون دقيقه"){
   //  mins= 49
    routineArr.push(49) 
 }
- if(transcipt == "خمسون دقيقة"){
+ if(transcript == "خمسون دقيقه"){
   //  mins= 50
    routineArr.push(50) 
 }
- if(transcipt == "واحد وخمسون دقيقة"){
+ if(transcript == "واحد وخمسون دقيقه"){
   //  mins= 51
    routineArr.push(51) 
 }
-  if(transcipt == "اثنان وخمسون دقيقة"){
+  if(transcript == "اثنان وخمسون دقيقه"){
   //  mins= 52
    routineArr.push(52) 
 }
-  if(transcipt == "ثلاث وخمسون دقيقة"){
+  if(transcript == "ثلاث وخمسون دقيقه"){
   //  mins= 53
    routineArr.push(53) 
 }
-  if(transcipt == "اربعة وخمسون دقيقة"){
+  if(transcript == "اربعه وخمسون دقيقه"){
   //  mins= 54
    routineArr.push(54) 
 }
-  if(transcipt == "خمسة وخمسون دقيقة"){
+  if(transcript == "خمسه وخمسون دقيقه"){
   //  mins= 55
    routineArr.push(55) 
 }
-  if(transcipt == "ستة وخمسون دقيقة"){
+  if(transcript == "سته وخمسون دقيقه"){
   //  mins= 56
    routineArr.push(56) 
 }
-  if(transcipt == "سبعة وخمسون دقيقة"){
+  if(transcript == "سبعه وخمسون دقيقه"){
   //  mins= 57
    routineArr.push(57) 
 }
-  if(transcipt == "ثمانية وخمسون دقيقة"){
+  if(transcript == "ثمانيه وخمسون دقيقه"){
   //  mins= 58
    routineArr.push(58) 
 }
-  if(transcipt == "تسعة وخمسون دقيقة"){
+  if(transcript == "تسعه وخمسون دقيقه"){
   //  mins= 59
    routineArr.push(59) 
 }
+if(transcript == "تماما"){
+  //  mins= 59
+   routineArr.push(0) 
+}
+
 }
 if(transcript == "حفظ")
 {
   routineArr.push('save');
   console.log("sssaaaaavvveee");
+  console.log("the lengthis "+routineArr.length)
   this.routineSpeechValidate();
 
-}*/
+}
+
   };
 
-/*
+
+
   async routineSpeechValidate(){
     
     if(routineArr[0]==='morning routine')
@@ -1082,12 +1113,14 @@ if(transcript == "حفظ")
         }
         else{
            // here alerat with aduio 
+           routineArr=[];
            alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات" );
 
         }
       }
       else{
        // here alerat with aduio 
+       routineArr=[];
        alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات" );
       }
     }
@@ -1104,11 +1137,13 @@ if(transcript == "حفظ")
         }
         else{
           // here alerat with aduio 
+          routineArr=[];
           alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات" );
         }
     }
     else{
       // here alerat with aduio 
+      routineArr=[];
       alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات" );
     }
   }
@@ -1121,18 +1156,20 @@ if(transcript == "حفظ")
 
         if(routineArr[1]==='turnOffLight' ||routineArr[1]==='turnOnLight'  )
         {
-             if(routineArr[2]==='0'){
+             if(routineArr[2]==='save'){
               this.save_button_action(1);
              }
           
         }
         else{
           // here alerat with aduio 
+          routineArr=[];
           alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات" );
         }
       }
       else{
         // here alerat with aduio 
+        routineArr=[];
         alert(  " عذرا، اتبع نفس الطريقة التي بالتعليمات" );
       }
     }
@@ -1142,19 +1179,23 @@ if(transcript == "حفظ")
       if (routineArr.length == 3 ){
         if(routineArr[1]==='turnOffLight' ||routineArr[1]==='turnOnLight'  )
         {
-             if(routineArr[2]==='0'){
+             if(routineArr[2]==='save'){
+               console.log("going to save method");
               this.save_button_action(2);
              }
           
         }
         else{
                   // here alerat with aduio 
+                  routineArr=[];
                   alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات" );
+                  
 
         }
       }
       else {
                 // here alerat with aduio 
+                routineArr=[];
                 alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات" );
 
       }
@@ -1165,8 +1206,7 @@ if(transcript == "حفظ")
 
 
 }
-*/
-/*
+
 save_button_action(index) {
   var lat , lng , i;
  
@@ -1238,11 +1278,12 @@ save_button_action(index) {
              
             
                //here alerat with aduio
+               routineArr=[];
                alert( "عذراً، عليك تفعيل خاصية الموقع حتى يتم انشاء وضع العودة");
            }
            else {
             
-           
+           console.log("inside if index2")
           routineName="come routine";
         
           disRoutine="وضع العودة";
@@ -1345,6 +1386,7 @@ save_button_action(index) {
        
   
   //here alerat with aduio
+  routineArr=[];
   alert( "تم حفظ  " + disRoutine);
  
        
@@ -1416,7 +1458,7 @@ save_button_action(index) {
           }  });//end snapshot..
         
          // here alerat with aduio
-         
+         routineArr=[];
          alert("تم حفظ  " + disRoutine);
          
     
@@ -1426,7 +1468,7 @@ save_button_action(index) {
      
   }
 }
-*/
+
 
   startRecording = async () => {
     // console.log(recording)
