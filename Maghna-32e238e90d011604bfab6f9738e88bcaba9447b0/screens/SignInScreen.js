@@ -2,7 +2,7 @@
 import * as WebBrowser from 'expo-web-browser';
 const {width, height} = Dimensions.get('window');
 import React, {Component} from 'react';
-import {
+import {Modal,
   Image,
   Platform,
   ScrollView,
@@ -32,6 +32,8 @@ export default class SignIn extends Component {
       visibilty: 'none',
       emailBorders:'#7db4cb',
       passBorders:'#7db4cb',
+      info:"",
+  saveModal:false,
 
     }
 }
@@ -104,7 +106,20 @@ measurementId: "G-R3BQPCTCTM"
     }
   }//end validate
 
-
+  showSaveModal = () => {
+    console.log('showModal')
+  this.setState({
+  
+      
+    saveModal: true
+  });
+  setTimeout(() => {
+    this.setState({
+     
+      saveModal:false
+    })
+    }, 4000);
+}
   handleLogin = () => {
 
     console.log(this.state.email)
@@ -131,7 +146,13 @@ measurementId: "G-R3BQPCTCTM"
           var username= this.username;
           //this.username = username
           if (!user.emailVerified){
-            Alert.alert("فضلاً تفقد بريدك الالكتروني");
+            this.setState({
+              info:"فضلاً تفقد بريدك الإلكتروني لتفعيل حسابك",
+            
+        
+          })
+          this.showSaveModal();
+           
           }else{
             firebase.database().ref('mgnUsers/'+user.uid).on('value',
             async(snapshot)  => {
@@ -222,6 +243,21 @@ measurementId: "G-R3BQPCTCTM"
                     <Text style={styles.note} >هل نسيت كلمه المرور؟</Text>
                     </TouchableOpacity>
                 </View>
+                <View>
+        <Modal
+                               animationType="slide"
+                                 transparent={true}
+                                 visible={this.state.saveModal}
+                                 onRequestClose={() => {
+                                    console.log('Modal has been closed.');}}>
+                                   
+                                <View style={styles.centeredView}>
+                              <View style={styles.modalView}>
+                                 <Text style={styles.modelStyle}>{this.state.info}</Text>
+                             </View>
+                              </View>
+                                    </Modal>
+                                    </View>
                 </View>
             </LinearGradient>
         </ScrollView>
@@ -232,6 +268,37 @@ measurementId: "G-R3BQPCTCTM"
 //
 
 const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  modelStyle: {
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#8abbc6',
+    marginLeft:10,
+    
+    marginBottom:20,
+    
+  },
     container: {
       flex: 1,
       backgroundColor: '#fff',

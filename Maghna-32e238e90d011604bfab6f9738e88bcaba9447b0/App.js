@@ -198,7 +198,7 @@ snapshot.forEach(item => {
  if(hour24 == RhourInt && RminInt == mins && temp.status == 1&& temp.userID == user.uid){
      if (temp.actionsID.indexOf("001")!= -1){
          console.log("It is true id is 001")
-         axios.put('http://192.168.100.14/api/1DQ8S2CiZCGaI5WT7A33pyrL19Y47F2PmGiXnv20/lights/3/state',
+         axios.put('http://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
           {on:true} )
         .then(res => res.json())
         console.log("I turn on");
@@ -207,7 +207,7 @@ snapshot.forEach(item => {
      }
      else if(temp.actionsID.indexOf("002")!= -1) {
       console.log("It is true id is 002")
-         axios.put('http://192.168.100.14/api/1DQ8S2CiZCGaI5WT7A33pyrL19Y47F2PmGiXnv20/lights/3/state',
+         axios.put('http://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
          {on:false} )
        .then(res => res.json())
        console.log("I turn off");

@@ -1,5 +1,5 @@
 import React ,{ Component } from 'react';
-import { ScrollView,
+import { ScrollView,Modal,
  StyleSheet,
  Text,
  View,
@@ -24,10 +24,27 @@ constructor(props) {
     this.state = {
         email: "",
         errorMsg:null,
+        info:"",
+        saveModal:false,
     };
 
 
 }
+showSaveModal = () => {
+  console.log('showModal')
+this.setState({
+
+    
+  saveModal: true
+});
+setTimeout(() => {
+  this.setState({
+   
+    saveModal:false
+  })
+  }, 4000);
+}
+
 
 UNSAFE_componentWillMount(){
 
@@ -71,7 +88,14 @@ handelForgetPassword = () => {
     try {
     navigation.navigate('SignIn')}
     catch (e){console.log(e.message)}
-    Alert.alert("فضلًا تفقد بريدك الإلكتروني");
+    this.setState({
+    
+    info:"فضلاٌ تفقد بريدك الإلكتروني",
+    
+
+  })
+  this.showSaveModal();
+    
 
 
     })
@@ -140,7 +164,21 @@ render(){
     </View>
   </ImageBackground>
     </View>
-
+    <View>
+        <Modal
+                               animationType="slide"
+                                 transparent={true}
+                                 visible={this.state.saveModal}
+                                 onRequestClose={() => {
+                                    console.log('Modal has been closed.');}}>
+                                   
+                                <View style={styles.centeredView}>
+                              <View style={styles.modalView}>
+                                 <Text style={styles.modelStyle}>{this.state.info}</Text>
+                             </View>
+                              </View>
+                                    </Modal>
+                                    </View>
     </View>
 
   );
@@ -169,6 +207,37 @@ forgetPassword.navigationOptions = ({navigation})=> ({
 );
 
 const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  modelStyle: {
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#8abbc6',
+    marginLeft:10,
+    
+    marginBottom:20,
+    
+  },
 
 
   header:{

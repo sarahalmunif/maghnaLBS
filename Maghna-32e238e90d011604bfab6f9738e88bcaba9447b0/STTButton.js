@@ -518,8 +518,9 @@ class SpeechToTextButton extends Component {
     }
     //starting from here all the methods and variables related to homescreen
     if (transcript == "تفعيل الوضع الصباحي") {
+      console.log('I understand')
       //_onPress2()
-
+      this.props.store.dispatch({type:'TOGGLE',index:'toggle3'});
 // LEt say hi for test ok ? 
 // Here after this executed it sticks and hanging like an infinite loop 
 // this.props.store.dispatch({type:'TOGGLE',index:'toggle3'});
