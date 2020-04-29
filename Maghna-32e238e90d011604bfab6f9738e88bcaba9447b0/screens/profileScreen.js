@@ -171,18 +171,6 @@ export default class profileScreen extends Component {
 
         }
 
-
-        storeData = async () => {
-// here to store
-          try {
-
-            var billAmount = { 'value' : this.state.amount};
-            await AsyncStorage.setItem('bill',60);
-          } catch (error) {
-
-          }
-
-        }
     editProfile = () => {
 
 
