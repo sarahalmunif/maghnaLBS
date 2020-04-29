@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import {
-  StyleSheet,
+  StyleSheet,AppState,
   View,
   Platform,
   AsyncStorage,
@@ -20,10 +20,11 @@ import moment from "moment";
 const rnTimer = require("react-native-timer");
 import { connect } from 'react-redux';
 import { updateToggle } from './actions/toggle'
-
+import * as TaskManager from 'expo-task-manager';
+import * as BackgroundFetch from 'expo-background-fetch';
 import { Alert } from 'react-native';
 import firebaseInitial from './constants/FireBase.js';
-
+const BACKGROUND_FETCH_TASK = 'background-fetch';
 const recordingOptions = {
   android: {
     extension: ".m4a",
@@ -80,6 +81,9 @@ class SpeechToTextButton extends Component {
       isFetching: false,
       isRecording: false,
       transcript: "",
+      appState: AppState.currentState,
+      status: null, //status for backfetch
+      isRegistered: false,
       //This is the dueation
       //this variable here in STTButton I use to store the duration in seconds in
       curTime: 0,
@@ -158,8 +162,49 @@ class SpeechToTextButton extends Component {
       setTimeout(resolve, ms);
     });
   }
+  handleAppStateChange = nextAppState => {
+    console.log('enter handle');
+    if (nextAppState === 'active') {
 
+      this.checkStatusAsync();
+    }
+  };
+  async checkStatusAsync() {
+    console.log('check!');
+    try {
+
+        console.log("enter if register");
+        await BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
+          minimumInterval: 60, // 1 minute
+        });
+        BackgroundFetch.setMinimumIntervalAsync(60);
+
+    }
+    catch(error){
+      console.log("saadly" + error);
+    }
+    BackgroundFetch.setMinimumIntervalAsync(60);
+    const status = await BackgroundFetch.getStatusAsync();
+    const isRegistered = await TaskManager.isTaskRegisteredAsync(BACKGROUND_FETCH_TASK);
+    console.log({status, isRegistered});
+    this.setState({ status, isRegistered });
+    try {
+      if(!this.state.isRegistered || this.state.isRegistered){
+        console.log("enter if register");
+        await BackgroundFetch.registerTaskAsync(BACKGROUND_FETCH_TASK, {
+          minimumInterval: 60, // 1 minute
+        });
+        BackgroundFetch.setMinimumIntervalAsync(60);
+      }
+    }
+    catch(error){
+      console.log("saadly" + error);
+    }
+
+  }
   async componentDidMount() {
+    AppState.addEventListener('change', this._handleAppStateChange);
+    AppState.addEventListener('change', this.handleAppStateChange);
     const firebaseConfig = {
 
       apiKey: "AIzaSyCsKoPxvbEp7rAol5m-v3nvgF9t8gUDdNc",
@@ -178,6 +223,105 @@ class SpeechToTextButton extends Component {
       await this.resetRecording();
     }
   }
+  _handleAppStateChange = (nextAppState) => {
+    console.log('+' +nextAppState);
+    console.log('enter second handle');
+    if (this.state.appState.match(/inactive|background/)&& nextAppState === "active" || nextAppState === "inactive" ||this.state.appState.match('active') ) {
+      console.log('App has come to the foreground!')
+      this._interval = setInterval( () => {
+        console.log('in process');
+
+        var hourInt;
+         var hour24 ; 
+        var user = firebase.auth().currentUser;
+        var actionArr =[] ;
+        var date = new Date();
+       var hour = date.getHours();
+       var mins = date.getMinutes();
+
+       console.log(hour + ":" + mins)
+       var timez = date.toLocaleTimeString();
+       console.log("the Time:"+ timez);
+       console.log('am/pm');
+       console.log('after ' + timez.substring(0,2))
+       var timeH = timez.substring(0,2);
+       hourInt = parseInt(timeH);
+       console.log('hourGlobal :'+hourInt);
+       if ( timez.substring(8) == 'PM' || hour == 0 ){
+
+
+        hour24= 12+  hourInt;
+        console.log("hour in " + hour24);
+
+       }
+       else {
+         hour24 = hour ; 
+       }
+
+
+       var timeM= timez.substring(2,4);
+       var minInt = parseInt(mins);
+      ;
+
+
+
+       //var user = context.auth;
+        var routineArr  = [];
+
+      var routineTrig = [];
+
+      var j,i;
+      var routineName ; 
+      var routineTime  ; 
+      var RminInt ,  RhourInt;
+
+      firebase.database().ref('/routine').once("value").then((snapshot)=>{
+    console.log("enter to database");
+
+
+      snapshot.forEach(item => {
+        var temp = item.val();
+        actionArr = temp.actionsID;
+        console.log(actionArr);
+        routineName = temp.name;
+        console.log(routineName)
+        routineTime= temp.time;
+        hour = routineTime.substring (0,2);
+        minute = routineTime.substring(3);
+        RminInt = parseInt(minute);
+        RhourInt = parseInt(hour);
+        console.log('data' + RhourInt + ":" + RminInt);
+        console.log("the time in r " + hour24 + "min" + mins)
+        if(hour24 == RhourInt && RminInt == mins && temp.status == 1&& temp.userID == user.uid){
+            if (temp.actionsID.indexOf("001")!= -1){
+                console.log("It is true id is 001")
+                axios.put('https://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
+                 {on:true} )
+               .then(res => res.json())
+               console.log("I turn on");
+               this.setState({ isOn: true });
+               Helper.setLightStatus(true);
+            }
+            else if(temp.actionsID.indexOf("002")!= -1) {
+                axios.put('https://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
+                {on:false} )
+              .then(res => res.json())
+              this.setState({ isOn: false });
+               Helper.setLightStatus(false);
+            }
+        }
+
+        return false;
+    }); //end forEach ..
+    });
+
+      return true;
+      }, 60000);
+
+
+    console.log (this.setState({appState: nextAppState}));
+  }
+}
 
 
   analysis = async (actionid) => {

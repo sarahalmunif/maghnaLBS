@@ -117,7 +117,7 @@ export default function App(props) {
 }
 TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
   const now = Date.now();
- 
+   // this will execute every minute when the app in background , we do the same thing when the app in foreground (method   _handleAppStateChange )in STTbutton class 
   console.log(`Got background fetch call at date: ${new Date(now).toISOString()}`);
  
   var hourInt;

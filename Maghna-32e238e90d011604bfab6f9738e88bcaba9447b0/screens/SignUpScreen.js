@@ -235,6 +235,8 @@ handelSignUp =() =>{
     return;
 
   }*/
+
+   // if the user has any error in register steps .. 
   if (this.state.emailBorder == 'red'||this.state.passwordBorder == 'red'||this.state.conPasswordBorder=='red'){
     this.setState({formErrorMsg: 'فضًلا، قم بتصحيح  الأخطاء الحمراء'})
     this.setState({errorMsgVisibilty: 'flex'})
@@ -244,15 +246,12 @@ handelSignUp =() =>{
     return;
 }
 
+// if the user fills all required fields correctly .. 
     try{
-  firebase
-  .auth()
-  .createUserWithEmailAndPassword(this.state.email, this.state.password)
+  firebase .auth() .createUserWithEmailAndPassword(this.state.email, this.state.password)
   .then((data) => {
 
-    firebase
-    .auth()
-    .onAuthStateChanged(user => {
+    firebase .auth() .onAuthStateChanged(user => {
       if (user) {
         this.userId = user.uid
         user.sendEmailVerification();
@@ -268,28 +267,21 @@ handelSignUp =() =>{
          this.props.navigation.navigate('SignIn')
       }
     });
-
     this.name.clear();
     this.password.clear();
     this.email.clear();
     this.confPassword.clear();
+    // display a successfull message for user 
     this.setState({
       info:"تم التسجيل بنجاح، تفقد بريدك الإلكتروني لغرض تفعيل الحساب",
-    
-
   })
   this.showSaveModal();
-    //Alert.alert("تم التسجيل بنجاح، تفقد بريدك الإلكتروني")
-
     })
-
+     // if the email was register before 
   .catch((error) => {
-
-    console.log(error.message)
+    // display an error message 
     this.setState({
       info:"نعتذر ، البريد الإلكتروني مسجل مسبقاٌ",
-    
-
   })
   this.showSaveModal();
     this.setState({formErrorMsg: 'نعتذر، البريد الإلكتروني مسجل مسبقًا'})

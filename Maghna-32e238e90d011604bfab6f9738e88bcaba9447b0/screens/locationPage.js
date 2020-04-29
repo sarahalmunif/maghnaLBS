@@ -99,18 +99,16 @@ measurementId: "G-R3BQPCTCTM"
     }
 
     getCurrentPosition() {
-      console.log("inside");
-      console.log("id "+ this.state.uID);
       navigator.geolocation.getCurrentPosition(
         (position) => {
-
+                 // direct get the lat and lng of user using GPS and set it to the user .. 
             var userId =  this.props.navigation.getParam('id', '');
             var lat= position.coords.latitude;
             console.log("lat: "+lat);
             var long= position.coords.longitude;
             console.log("long: "+long);
           //end update
-
+            // maybe then user want not to update  he/she location ..
         setTimeout(()=>{Alert.alert(
           'هل تريد تحديث موقعك ؟' ,
           '',
@@ -120,7 +118,7 @@ measurementId: "G-R3BQPCTCTM"
               console.log("cancel is pressed"),
               style:'cancel'
             },{text:'نعم',
-
+               // if the user really want to update he/she location then set the lng and lat to him/her in firebase .. 
             onPress:()=>{
 
               if (this.state.uID!==''){
@@ -151,12 +149,6 @@ measurementId: "G-R3BQPCTCTM"
 
           ]
           );},5000);
-
-           console.log("latitude"+lat);
-           console.log("state latitude"+this.state.latitude);
-           console.log("longitude"+long);
-           console.log("state longitude"+this.state.longitude);
-
           })
 
         setTimeout(()=>{this.props.navigation.goBack();},7000);

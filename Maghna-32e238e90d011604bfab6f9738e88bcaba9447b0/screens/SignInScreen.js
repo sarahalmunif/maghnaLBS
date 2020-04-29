@@ -121,19 +121,18 @@ measurementId: "G-R3BQPCTCTM"
     }, 4000);
 }
   handleLogin = () => {
-
-    console.log(this.state.email)
+      // first check the email and password are not empty .. 
     if (this.state.email == '') {
       this.setState({emailBorders: 'red'})
       return;
     }
-
     if ( this.state.password=='') {
       this.setState({passBorders: 'red'})
       return;
     }
-
     const {email, password} = this.state
+
+    // authnticate the user using firebase by pass the password and email to it .. 
     firebase
     .auth()
     .signInWithEmailAndPassword(email, password)
@@ -144,43 +143,36 @@ measurementId: "G-R3BQPCTCTM"
         if (user) {
           this.userId = user.uid;
           var username= this.username;
-          //this.username = username
+         // if the email is not active . 
           if (!user.emailVerified){
             this.setState({
               info:"فضلاً تفقد بريدك الإلكتروني لتفعيل حسابك",
-            
-        
           })
           this.showSaveModal();
-           
-          }else{
+          }
+          // if the user information found in firebase then he/she can access the home screen .. 
+          else{
             firebase.database().ref('mgnUsers/'+user.uid).on('value',
             async(snapshot)  => {
               this.email.clear();
               this.password.clear();
-              console.log('after set state:'+this.state.email)
-             // Alert.alert("تم تسجيلك بنجاح");
+          
               if (snapshot.exists()){
                 try {
                    await AsyncStorage.setItem("loggedIn", "friday");
                     this.props.navigation.navigate('HomeStack',{UID:user.uid})
                       } catch (error) {
-                            console.log("2Something went wrong", error);
+                       
                             } // user full info are retrieved
-              }
-                console.log('before set state:'+user.uid)
-
+              }  
           })
         }
-
   }
 });
 }).catch((error) => {
   console.log(error.message)
-
   this.setState({visibilty: 'flex'})
 })
-
 }
 
 //this.props.navigation.navigate('HomeStack', {name: username })}
