@@ -603,6 +603,9 @@ class SpeechToTextButton extends Component {
 
     if (transcript == "تشغيل النور") {
       // did this part linked because this is the trigger to the change of state
+      if(this.props.lightStatus==true){
+        alert("الاضاءه مفتوحه مسبقاً ");
+      }
       this.props.toggleLight(true);
       this.setState({ isOn: true });
       Helper.setLightStatus(true);
@@ -639,7 +642,11 @@ class SpeechToTextButton extends Component {
         });
     }
 
-    if (transcript == "ايقاف النور") {
+    if (transcript == "اغلاق النور") {
+
+      if(this.props.lightStatus==false){
+        alert("الاضاءه مغلقه مسبقاً");
+      }
       // this.props.toggleLight(false);
       Helper.setLightStatus(false);
 
