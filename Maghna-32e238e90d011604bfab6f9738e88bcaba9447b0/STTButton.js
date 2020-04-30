@@ -364,6 +364,11 @@ class SpeechToTextButton extends Component {
                 this.props.toggleLight(true);
                 this.setState({ isOn: true });
                 Helper.setLightStatus(true);
+                rnTimer.setInterval(
+                  "duration",
+                  () => this.props.increaseCount(this.props.currentCount),
+                  1000
+                );
               }
               else if (temp.actionsID.indexOf("002") != -1) {
                 axios.put('https://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
@@ -372,6 +377,8 @@ class SpeechToTextButton extends Component {
                   this.props.toggleLight(false);
                 this.setState({ isOn: false });
                 Helper.setLightStatus(false);
+                this.props.stopCounter(this.props.currentCount);
+                rnTimer.clearInterval("duration");
               }
             }
 
