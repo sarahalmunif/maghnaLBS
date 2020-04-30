@@ -55,39 +55,27 @@ class supdevicesScreen extends Component {
     }
   }
 
+
+  async componentWillUnmount() {
+
+    soundObject.unloadAsync();
+  }
+
   async componentDidMount() {
 
+  
 
     this.didBlurSubscription = this.props.navigation.addListener(
       'didBlur',
       () => soundObject.unloadAsync()
     )
-    // 
-    this.didFocusSubscription = this.props.navigation.addListener(
+
+
+    this.didBlurSubscription = this.props.navigation.addListener(
       'didFocus',
-      async () => {
-
-        this.getAudio();
-        var lampStatus = this.props.lightStatus;
-        // if the lamb is on then the lamb device will be marked with #2cb457 color 
-        if (lampStatus == true) {
-          this.setState({ lambColor: '#2cb457' });
-          this.setState({ textColor: styles.openText });
-
-        }
-        // if the lamb is off then the lamb device will be marked with #6FA0AF color 
-        else if (lampStatus == false) {
-          this.setState({ lambColor: '#6FA0AF' });
-          this.setState({ textColor: styles.colseText });
-
-        }
-        // if the lamb is not connected then the lamb device will be marked with grey color 
-        else {
-          this.setState({ lambColor: 'grey' });
-          this.setState({ textColor: styles.NotConnText });
-        }
-      }
+      () => this.getAudio()
     )
+    // 
 
 
 
@@ -108,17 +96,16 @@ class supdevicesScreen extends Component {
   }
 
   async getAudio() {
-    var lampStatus = await Helper.getLightStatus();
+    console.log('called:getAudio()');
+    
+    var lampStatus = this.props.lightStatus;
     if (lampStatus == true) {
-      console.log("Hi get audio ");
        let fileURL = '';
       const text = ' الأجهزة المُتَّصِلَه ، الإنَارَهْ ، مُتَّصِلَه ';
 
       axios.post(`http://45.32.251.50`, { text })
         .then(res => {
-          console.log("----------------------Hi--------------------------" + res.data);
           fileURL = res.data;
-          console.log(fileURL);
 
           this.playAudio(fileURL);
 
@@ -128,12 +115,10 @@ class supdevicesScreen extends Component {
     else {
       let fileURL = '';
       const text = ' الأجهزة المُتَّصِلَه ، الإنَارَهْ ،غَيْرْ مُتَّصِلَه ';
-       axios.post(`http://45.32.251.50`, { text })
+      axios.post(`http://45.32.251.50`, { text })
         .then(res => {
-          console.log("----------------------xxxx--------------------------" + res.data);
           fileURL = res.data;
-          console.log(fileURL);
-
+ 
           this.playAudio(fileURL);
 
         })
@@ -295,8 +280,8 @@ class supdevicesScreen extends Component {
 
             <View style={styles.scontainer}>
 
-              <Text style={this.props.lightStatus?styles.openText:styles.colseText}>الإنارة</Text>
-              <MaterialCommunityIcons style={{ right: 190, bottom: 17 }} name="lightbulb-on-outline" size={55} color={this.props.lightStatus?'#2cb457':'#6FA0AF' }/>
+              <Text style={this.props.lightStatus ? styles.openText : styles.colseText}>الإنارة</Text>
+              <MaterialCommunityIcons style={{ right: 190, bottom: 17 }} name="lightbulb-on-outline" size={55} color={this.props.lightStatus ? '#2cb457' : '#6FA0AF'} />
 
             </View>
 

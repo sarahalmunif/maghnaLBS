@@ -592,7 +592,7 @@ class SpeechToTextButton extends Component {
     }
 
     if (transcript == "ايقاف النور") {
-      this.props.toggleLight(false);
+      // this.props.toggleLight(false);
       Helper.setLightStatus(false);
 
       // Here the stopping
