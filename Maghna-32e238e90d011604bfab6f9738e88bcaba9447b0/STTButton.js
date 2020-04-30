@@ -315,6 +315,7 @@ class SpeechToTextButton extends Component {
                   { on: true })
                   .then(res => res.json())
                 console.log("I turn on");
+                this.props.toggleLight(true);
                 this.setState({ isOn: true });
                 Helper.setLightStatus(true);
               }
@@ -322,6 +323,7 @@ class SpeechToTextButton extends Component {
                 axios.put('https://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
                   { on: false })
                   .then(res => res.json())
+                  this.props.toggleLight(false);
                 this.setState({ isOn: false });
                 Helper.setLightStatus(false);
               }
