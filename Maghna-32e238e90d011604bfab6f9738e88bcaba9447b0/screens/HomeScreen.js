@@ -501,7 +501,7 @@ class HomeScreen extends Component {
         });//end forEach
         if (userRoutineArr.indexOf(routineName) == -1) {
           this.setState({
-            info:"عذراً\n"+' لم تقم بإنشاء وضع الرجوع إلى المنزل من قبل ، عليك أولاً إنشاؤه',
+            info:"عذراً\n"+' لم تقم بإنشاء وضع العودة إلى المنزل من قبل ، عليك أولاً إنشاؤه',
           
     
         })
@@ -794,7 +794,7 @@ class HomeScreen extends Component {
           onPress={() => this.props.update(!this.props.toggle.toggle1, 1)}
           style={{ fontSize: 25, backgroundColor: this.props.toggle.toggle1 ? 'white' : '#6FA0AF', color: '#6FA0AF', justifyContent: 'center', width: 150, height: 140, left: 80, borderRadius: 25, marginHorizontal: 25, paddingLeft: 28, paddingRight: 10, paddingTop: 9, bottom: -250, shadowOpacity: 0.3 }}>
           <Ionicons style={{ left: 17, paddingLeft: -40, paddingRight: 5, paddingTop: 9, bottom: 90, top: -10 }} name="md-home" size={70} color={this.props.toggle.toggle1 ? '#6FA0AF' : 'white'} />
-          <Text style={{ left: 0, paddingLeft: -40, paddingRight: 5, bottom: 90, top: -10, color: this.props.toggle.toggle1 ? '#6FA0AF' : 'white', fontWeight: 'bold', fontSize: 13 }}>الرجوع إلى المنزل</Text>
+          <Text style={{ left: 0, paddingLeft: -40, paddingRight: 5, bottom: 90, top: -10, color: this.props.toggle.toggle1 ? '#6FA0AF' : 'white', fontWeight: 'bold', fontSize: 13 }}>العودة إلى المنزل</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
