@@ -327,6 +327,29 @@ class supdevicesScreen extends Component {
 
 }
 
+supdevicesScreen.navigationOptions = ({navigation})=> ({
+
+  headerTitle:  'الأجهزة المتصلة',
+
+ /* headerRight:()=>(
+    <TouchableOpacity onPress={()=>{navigation.navigate('Home')}} style={{marginRight:15}}>
+      <AntDesign name="right" size={24} color="#fff" />
+    </TouchableOpacity>
+  ),
+  */
+  headerLeft:navigation.state.params && navigation.state.params.headerLeft,
+  headerStyle: {
+    backgroundColor: '#8BC4D0',
+    color:'white'
+
+ },
+ headerTitleStyle: {
+  color: '#fff'
+},
+
+});
+
+
 const mapStateToProps = (state) => {
   return {
 
@@ -338,27 +361,6 @@ const mapStateToProps = (state) => {
 export default connect(mapStateToProps)(supdevicesScreen);
 
 
-supdevicesScreen.navigationOptions = ({ navigation }) => ({
-
-  headerTitle: 'الأجهزة المتصلة',
-
-  /* headerRight:()=>(
-     <TouchableOpacity onPress={()=>{navigation.navigate('Home')}} style={{marginRight:15}}>
-       <AntDesign name="right" size={24} color="#fff" />
-     </TouchableOpacity>
-   ),
-   */
-  headerLeft: navigation.state.params && navigation.state.params.headerLeft,
-  headerStyle: {
-    backgroundColor: '#8BC4D0',
-    color: 'white'
-
-  },
-  headerTitleStyle: {
-    color: '#fff'
-  },
-
-});
 
 const styles = StyleSheet.create({
 
