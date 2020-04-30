@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import {
   StyleSheet, AppState,
-  View,
+  View,Modal,
   Platform,
   AsyncStorage,
   Image, Text
@@ -48,6 +48,37 @@ const recordingOptions = {
 };
 
 const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  modelStyle: {
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#8abbc6',
+    marginLeft:10,
+    
+    marginBottom:20,
+    
+  },
   container: {
     alignItems: "center",
     flexDirection: 'row'
@@ -85,6 +116,8 @@ class SpeechToTextButton extends Component {
       appState: AppState.currentState,
       status: null, //status for backfetch
       isRegistered: false,
+      info:"",
+      saveModal:false,
       //This is the dueation
       //this variable here in STTButton I use to store the duration in seconds in
       curTime: 0,
@@ -99,7 +132,20 @@ class SpeechToTextButton extends Component {
 
   }
 
-
+  showSaveModal = () => {
+    console.log('showModal')
+  this.setState({
+  
+      
+    saveModal: true
+  });
+  setTimeout(() => {
+    this.setState({
+     
+      saveModal:false
+    })
+    }, 4000);
+}
 
   TTSInstruction = async () => {
     try {
@@ -1051,13 +1097,22 @@ class SpeechToTextButton extends Component {
         }
         else {
           // here alerat with aduio 
-          alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
+          this.setState({
+            info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
+        })
+        this.showSaveModal();
+          // alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
 
         }
       }
       else {
+
         // here alerat with aduio 
-        alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
+        this.setState({
+          info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
+      })
+      this.showSaveModal();
+       // alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
       }
     }
 
@@ -1071,12 +1126,20 @@ class SpeechToTextButton extends Component {
         }
         else {
           // here alerat with aduio 
-          alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
+          this.setState({
+            info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
+        })
+        this.showSaveModal();
+          //alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
         }
       }
       else {
         // here alerat with aduio 
-        alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
+        this.setState({
+          info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
+      })
+      this.showSaveModal();
+       // alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
       }
     }
 
@@ -1093,12 +1156,20 @@ class SpeechToTextButton extends Component {
           }
           else {
             // here alerat with aduio 
-            alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
+            this.setState({
+              info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
+          })
+          this.showSaveModal();
+            //alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
           }
         }
         else {
           // here alerat with aduio 
-          alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
+          this.setState({
+            info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
+        })
+        this.showSaveModal();
+         // alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
         }
       }
 
@@ -1112,13 +1183,21 @@ class SpeechToTextButton extends Component {
         }
         else {
           // here alerat with aduio 
-          alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
+          this.setState({
+            info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
+        })
+        this.showSaveModal();
+         // alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
 
         }
       }
       else {
         // here alerat with aduio 
-        alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
+        this.setState({
+          info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
+      })
+      this.showSaveModal();
+        //alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
 
       }
     }
@@ -1174,7 +1253,11 @@ class SpeechToTextButton extends Component {
       if (lat === 0 && lng === 0) {
 
         //here alerat with aduio 
-        alert("عذراً، عليك تفعيل خاصية الموقع حتى يتم انشاء وضع الخروج");
+        this.setState({
+          info:"عذراً\n" +   " عليك تفعيل خاصية الموقع حتى يتم انشاء وضع الخروج",
+      })
+      this.showSaveModal();
+      //  alert("عذراً، عليك تفعيل خاصية الموقع حتى يتم انشاء وضع الخروج");
 
       }// end if check location
       else {
@@ -1201,7 +1284,11 @@ class SpeechToTextButton extends Component {
 
 
         //here alerat with aduio
-        alert("عذراً، عليك تفعيل خاصية الموقع حتى يتم انشاء وضع العودة");
+        this.setState({
+          info:"عذراً\n" +   " عليك تفعيل خاصية الموقع حتى يتم انشاء وضع العودة",
+      })
+      this.showSaveModal();
+      //  alert("عذراً، عليك تفعيل خاصية الموقع حتى يتم انشاء وضع العودة");
       }
       else {
 
@@ -1308,7 +1395,11 @@ class SpeechToTextButton extends Component {
 
 
       //here alerat with aduio
-      alert("تم حفظ  " + disRoutine);
+      this.setState({
+        info:"تم حفظ" + disRoutine ,
+    })
+    this.showSaveModal();
+     // alert("تم حفظ  " + disRoutine);
 
 
 
@@ -1380,8 +1471,11 @@ class SpeechToTextButton extends Component {
       });//end snapshot..
 
       // here alerat with aduio
-
-      alert("تم حفظ  " + disRoutine);
+      this.setState({
+        info:"تم حفظ" + disRoutine ,
+    })
+    this.showSaveModal();
+    //  alert("تم حفظ  " + disRoutine);
 
 
       console.log("save routine");
@@ -1459,10 +1553,26 @@ class SpeechToTextButton extends Component {
           {isFetching && <Image source={require('./crop2.gif')} style={styles.Indicator} />}
           {!isFetching && <Image source={require('./crop.gif')} style={styles.Indicator1} />}
         </View>
+        <View>
+        <Modal
+                               animationType="slide"
+                                 transparent={true}
+                                 visible={this.state.saveModal}
+                                 onRequestClose={() => {
+                                    console.log('Modal has been closed.');}}>
+                                   
+                                <View style={styles.centeredView}>
+                              <View style={styles.modalView}>
+                                 <Text style={styles.modelStyle}>{this.state.info}</Text>
+                             </View>
+                              </View>
+                                    </Modal>
+                                    </View>
       </View>
     );
   }
 }
+
 
 const mapStateToProps = (state) => {
   return {
