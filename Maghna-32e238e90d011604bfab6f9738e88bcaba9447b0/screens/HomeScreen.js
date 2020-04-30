@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   ActivityIndicator, Text, View, Image,
-  Alert, TouchableOpacity, Button
+  Alert, TouchableOpacity, Button , Modal
 } from 'react-native';
 import {
   FontAwesome5, AntDesign, Feather
@@ -27,7 +27,8 @@ class HomeScreen extends Component {
 
     super(props);
     this.state = {
-      toggle: false
+      toggle: false,
+      
     };
     super(props)
     this.recording = null
@@ -36,6 +37,8 @@ class HomeScreen extends Component {
       isRecording: false,
       transcript: '',
       userRoutineArr: [],
+      info:"",
+      saveModal:false,
     }
 
   }
@@ -43,7 +46,20 @@ class HomeScreen extends Component {
 
 
 
-
+  showSaveModal = () => {
+    console.log('showModal')
+  this.setState({
+  
+      
+    saveModal: true
+  });
+  setTimeout(() => {
+    this.setState({
+     
+      saveModal:false
+    })
+    }, 4000);
+}
 
   async checkRoutine() {
 
@@ -456,7 +472,76 @@ class HomeScreen extends Component {
   }
 
 
+  _onPress1() {
+    const newState = !this.state.toggle1;
+    let theId;
+    let routineName = 'come routine';
+    let user = firebase.auth().currentUser;
+    let userRoutineArr = [];
 
+    if (newState) {
+      firebase.database().ref('/routine').once("value", snapshot => {
+        snapshot.forEach(item => {
+          let temp = item.val();
+          if (temp.userID == user.uid) {
+
+            userRoutineArr.push(temp.name);
+            console.log(temp.name);
+          }//end if
+          if (userRoutineArr.indexOf(routineName) != -1) {
+            theId = item.key;
+            firebase.database().ref('routine/' + theId).update({
+              status: 1,
+
+            });
+            this.setState({ toggle1: newState })
+          }
+
+
+        });//end forEach
+        if (userRoutineArr.indexOf(routineName) == -1) {
+          this.setState({
+            info:"عذراً\n"+' لم تقم بإنشاء وضع الرجوع إلى المنزل من قبل ، عليك أولاً إنشاؤه',
+          
+    
+        })
+      
+        
+        this.showSaveModal();
+
+          this.setState({ toggle1: !newState })
+
+
+        }
+      }); //end snapshot..
+
+    }
+    else {
+      firebase.database().ref('/routine').once("value", snapshot => {
+        snapshot.forEach(item => {
+          let temp = item.val();
+          if (temp.userID == user.uid) {
+
+            userRoutineArr.push(temp.name);
+            console.log(temp.name);
+          }//end if
+          if (userRoutineArr.indexOf(routineName) != -1) {
+            theId = item.key;
+            firebase.database().ref('routine/' + theId).update({
+              status: 0,
+
+            });
+          }
+
+          this.setState({ toggle1: newState })
+        });//end forEach
+      }); //end snapshot..
+    }
+
+
+    // });
+    // }
+  }
 
   _onPress2() {
     let theId;
@@ -486,8 +571,13 @@ class HomeScreen extends Component {
 
         });//end forEach
         if (userRoutineArr.indexOf(routineName) == -1) {
-
-          Alert.alert("عذراً", " لم تقم بإنشاء الوضع الصباحي من قبل ، عليك أولاً إنشاؤه");
+          this.setState({
+            info:"عذراً\n" + "لم تقم بإنشاء الوضع الصباحي من قبل ، عليك أولاً إنشاؤه",
+          
+      
+        })
+        this.showSaveModal();
+         // Alert.alert("عذراً", " لم تقم بإنشاء الوضع الصباحي من قبل ، عليك أولاً إنشاؤه");
           this.setState({ toggle2: !newState })
 
 
@@ -553,8 +643,13 @@ class HomeScreen extends Component {
 
         });//end forEach
         if (userRoutineArr.indexOf(routineName) == -1) {
-
-          Alert.alert("عذراً", " لم تقم بإنشاء وضع الخروج من المنزل من قبل ، عليك أولاً إنشاؤه");
+          this.setState({
+            info:"عذراً\n" + "لم تقم بإنشاء وضع الخروج من المنزل من قبل ، عليك أولاً إنشاؤه",
+          
+      
+        })
+        this.showSaveModal();
+        //  Alert.alert("عذراً", " لم تقم بإنشاء وضع الخروج من المنزل من قبل ، عليك أولاً إنشاؤه");
           this.setState({ toggle3: !newState })
 
 
@@ -615,7 +710,13 @@ class HomeScreen extends Component {
 
         });//end forEach
         if (userRoutineArr.indexOf(routineName) == -1) {
-          Alert.alert("عذراً", " لم تقم بإنشاء الوضع المسائي من قبل ، عليك أولاً إنشاؤه");
+          this.setState({
+            info:"عذراً\n" + "لم تقم بإنشاء الوضع المسائي من قبل ، عليك أولاً إنشاؤه",
+          
+      
+        })
+        this.showSaveModal();
+          //Alert.alert("عذراً", " لم تقم بإنشاء الوضع المسائي من قبل ، عليك أولاً إنشاؤه");
           this.setState({ toggle4: !newState })
 
         }
@@ -661,6 +762,20 @@ class HomeScreen extends Component {
       <View style={{ flex: 1, justifyContent: "center", alignItems: "center", backgroundColor: '#F7FAFF' }}>
 
 
+        <Modal
+                               animationType="slide"
+                                 transparent={true}
+                                 visible={this.state.saveModal}
+                                 onRequestClose={() => {
+                                    console.log('Modal has been closed.');}}>
+                                   
+                                <View style={styles.centeredView}>
+                              <View style={styles.modalView}>
+                                 <Text style={styles.modelStyle}>{this.state.info}</Text>
+                             </View>
+                              </View>
+                                    </Modal>
+                                    
         <TouchableOpacity
           onPress={() => NavigationService.navigate("instructions")}
           style={{ fontSize: 20, justifyContent: 'center', width: 130, height: 90, left: 100, borderRadius: 25, marginHorizontal: 1, paddingLeft: 2, paddingRight: 10, paddingTop: -150, bottom: -220, shadowOpacity: 0.3 }}>
@@ -702,7 +817,7 @@ class HomeScreen extends Component {
           <MaterialCommunityIcons style={{ left: 17, paddingLeft: -40, paddingRight: 5, paddingTop: 9, bottom: 90, top: -10 }} name="weather-night" size={70} color={this.props.toggle.toggle4 ? '#6FA0AF' : 'white'} ></MaterialCommunityIcons>
           <Text style={{ left: 5, paddingLeft: -40, paddingRight: 5, bottom: 90, top: -10, color: this.props.toggle.toggle4 ? '#6FA0AF' : 'white', fontWeight: 'bold', fontSize: 13 }}>الوضع المسائي</Text>
         </TouchableOpacity>
-
+      
         <View style={styles.container}>
           <TouchableOpacity
             onPressIn={this.startRecording}
@@ -723,6 +838,7 @@ class HomeScreen extends Component {
         <Image
           style={{ width: 440, height: 360, bottom: -20 }}
           source={require('./222.png')} />
+              
       </View>
     );
   }
@@ -748,6 +864,37 @@ export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
 
 
 const styles = StyleSheet.create({
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  modelStyle: {
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#8abbc6',
+    marginLeft:10,
+    
+    marginBottom:20,
+    
+  },
   container: {
     flex: 1,
     backgroundColor: 'red',

@@ -18,7 +18,7 @@ import global from "./global";
 import { AsyncStorage } from "react-native";
 import NavigationService from "./navigation/NavigationService";
 import * as firebase from 'firebase';
-
+import axios from 'axios';
 import * as TaskManager from 'expo-task-manager';
 import * as BackgroundFetch from 'expo-background-fetch';
 /*

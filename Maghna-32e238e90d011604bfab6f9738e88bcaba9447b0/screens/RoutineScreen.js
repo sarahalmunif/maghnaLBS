@@ -1530,7 +1530,7 @@ return polygon
                             </View>
                         {
                             this.state.evening_toggle &&
-                            <View style = {{width: '100%', marginTop: 15}}>
+                            <View style = {{width: '100%', marginTop: 15 ,   marginBottom:60}}>
                                 <Text style={styles.routineTimeStyle}>{this.state.timeText} </Text>
                                 <ScrollView style = {{width: '100%', height: 80}} horizontal = {true}>
                                 {
@@ -1611,7 +1611,7 @@ return polygon
                                         <Text style={styles.signUpText,{color: '#8abbc6',}}> حـفـظ </Text>
                                     </TouchableHighlight>
                                     <TouchableHighlight style={[styles.buttonContainer, styles.sTButton]} onPress={() => this.setState({date_picker_display: true})} >
-                                        <Text style={styles.signUpText}> الـمـؤقـت </Text>
+                                        <Text style={styles.signUpText}> المؤقـت </Text>
                                     </TouchableHighlight>
                                     <TouchableHighlight style={[styles.buttonContainer, styles.sTButton]} onPress={() => this.cancelSave ()} >
                                         <Text style={styles.signUpText}> إلـغـاء </Text>
@@ -1806,7 +1806,6 @@ const styles = StyleSheet.create({
      shadowOpacity: 0.1,
      opacity: 0.9,
   },
- 
   perInfo:{
     color: '#9F9F9F',
     fontSize: 20,
