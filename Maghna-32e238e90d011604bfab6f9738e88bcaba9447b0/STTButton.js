@@ -357,9 +357,9 @@ class SpeechToTextButton extends Component {
             if (hour24 == RhourInt && RminInt == mins && temp.status == 1 && temp.userID == user.uid) {
               if (temp.actionsID.indexOf("001") != -1) {
                 console.log("It is true id is 001")
-                axios.put('https://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
+                axios.put('http://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
                   { on: true })
-                  .then(res => res.json())
+                 // .then(res => res.json())
                 console.log("I turn on");
                 this.props.toggleLight(true);
                 this.setState({ isOn: true });
@@ -373,7 +373,7 @@ class SpeechToTextButton extends Component {
               else if (temp.actionsID.indexOf("002") != -1) {
                 axios.put('https://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
                   { on: false })
-                  .then(res => res.json())
+                 // .then(res => res.json())
                   this.props.toggleLight(false);
                 this.setState({ isOn: false });
                 Helper.setLightStatus(false);
