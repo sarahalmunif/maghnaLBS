@@ -10,28 +10,28 @@ import {
   TouchableHighlight,
   Text,
 } from "react-native";
-import axios from "axios";
-
 import { Ionicons } from "@expo/vector-icons";
 import AppNavigator from "./navigation/AppNavigator";
 //import Header from './components/Header';
 import STTButton from "./STTButton";
 import global from "./global";
 import { AsyncStorage } from "react-native";
-import * as TaskManager from 'expo-task-manager';
 import NavigationService from "./navigation/NavigationService";
 import * as firebase from 'firebase';
-
-
+import axios from 'axios';
+import * as TaskManager from 'expo-task-manager';
 import * as BackgroundFetch from 'expo-background-fetch';
 /*
  *  Redux for state management
  */
 import { Provider } from "react-redux";
-import configureStore from "./redux/createStore";
+//import configureStore from "./redux/createStore";
 const BACKGROUND_FETCH_TASK = 'background-fetch';
-let store = configureStore();
+//let store = configureStore();
 
+// import configureStore from "./redux/createStore";
+ 
+import store from './store/index';
 export default function App(props) {
   const [displayMic, setDisplayMic] = useState(false);
   const [buttonDisplay, setButtonDisplay] = useState(false);
@@ -117,7 +117,7 @@ export default function App(props) {
 }
 TaskManager.defineTask(BACKGROUND_FETCH_TASK, async () => {
   const now = Date.now();
- 
+   // this will execute every minute when the app in background , we do the same thing when the app in foreground (method   _handleAppStateChange )in STTbutton class 
   console.log(`Got background fetch call at date: ${new Date(now).toISOString()}`);
  
   var hourInt;
@@ -198,7 +198,7 @@ snapshot.forEach(item => {
  if(hour24 == RhourInt && RminInt == mins && temp.status == 1&& temp.userID == user.uid){
      if (temp.actionsID.indexOf("001")!= -1){
          console.log("It is true id is 001")
-         axios.put('http://192.168.100.14/api/1DQ8S2CiZCGaI5WT7A33pyrL19Y47F2PmGiXnv20/lights/3/state',
+         axios.put('http://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
           {on:true} )
         .then(res => res.json())
         console.log("I turn on");
@@ -207,7 +207,7 @@ snapshot.forEach(item => {
      }
      else if(temp.actionsID.indexOf("002")!= -1) {
       console.log("It is true id is 002")
-         axios.put('http://192.168.100.14/api/1DQ8S2CiZCGaI5WT7A33pyrL19Y47F2PmGiXnv20/lights/3/state',
+         axios.put('http://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
          {on:false} )
        .then(res => res.json())
        console.log("I turn off");

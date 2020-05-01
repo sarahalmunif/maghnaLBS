@@ -112,7 +112,7 @@ export default class RoutineScreen extends Component {
       setTimeout(() => {
           this.setState({
             modalVisible: false,
-            saveModal:false
+            
           })
           }, 3000);
       }
@@ -538,7 +538,9 @@ return polygon
             firebase.database().ref('mgnUsers/'+firebase.auth().currentUser.uid).once('value',(snap)=>{ 
             
              lat= snap.val().latitude;
-             lng= snap.val().longitude;})
+             console.log(''+lat);
+             lng= snap.val().longitude;
+            console.log(lng)})
         
             
         
@@ -926,11 +928,14 @@ return polygon
                         })//end set routine. 
                     
                     }  });//end snapshot..
+                    console.log('will appear' + disRoutine);
                     this.setState({
                         info:"تم حفظ  " + disRoutine,
                         clear:true
                 
                     })
+                    console.log('yes I set');
+                    
                     this.showSaveModal();
                            this.setState({
                             morning_toggle: false,
@@ -1055,7 +1060,17 @@ return polygon
 
     }
 
-    
+    cancelSave (){
+        this.setState({
+            morning_toggle: false,
+            home_exit_toggle: false,
+            home_toggle: false,
+            evening_toggle: false,})  
+            for(i=0;i<6;i++){
+                this.state.toggle_button_array[i].clicked==false
+            }
+            this.init_hourminute_array(); 
+    }
     render() {
         return (
 
@@ -1216,11 +1231,14 @@ return polygon
                                 
                                 <View style = {{width: '100%', flexDirection: 'row', justifyContent: 'space-around'}}>
                                     <TouchableHighlight style={[styles.buttonContainer, styles.sTButton,{color: '#8abbc6',}]} onPress={() => this.save_button_action(0)} >
-                                        <Text style={styles.signUpText,{color: '#8abbc6',}}> حفظ </Text>
+                                        <Text style={styles.signUpText,{color: '#8abbc6',}}> حـفـظ </Text>
                                            
                                     </TouchableHighlight>
                                     <TouchableHighlight style={[styles.buttonContainer, styles.sTButton]} onPress={() => this.setState({date_picker_display: true})} >
                                         <Text style={styles.signUpText}> المؤقت </Text>
+                                    </TouchableHighlight>
+                                    <TouchableHighlight style={[styles.buttonContainer, styles.sTButton]} onPress={() => this.cancelSave ()} >
+                                        <Text style={styles.signUpText}> إلـغـاء </Text>
                                     </TouchableHighlight>
                                 </View>
                                 <Modal
@@ -1338,7 +1356,10 @@ return polygon
                                 </ScrollView>
                                 <View style = {{width: '100%', flexDirection: 'row', justifyContent: 'space-around'}}>
                                     <TouchableHighlight style={[styles.buttonContainer, styles.sTButton,{color: '#8abbc6'}]} onPress={() => this.save_button_action(1)} >
-                                        <Text style={[styles.signUpText,{color: '#8abbc6',}]}> حفظ </Text>
+                                        <Text style={[styles.signUpText,{color: '#8abbc6',}]}> حـفـظ </Text>
+                                    </TouchableHighlight>
+                                    <TouchableHighlight style={[styles.buttonContainer, styles.sTButton]} onPress={() => this.cancelSave ()} >
+                                        <Text style={styles.signUpText}> إلـغـاء </Text>
                                     </TouchableHighlight>
                                     {/* <TouchableHighlight style={[styles.buttonContainer, styles.sTButton]} onPress={() => this.setState({date_picker_display: true})} >
                                         <Text style={styles.signUpText}> المؤقت </Text>
@@ -1453,7 +1474,11 @@ return polygon
                                 </ScrollView>
                                 <View style = {{width: '100%', flexDirection: 'row', justifyContent: 'space-around'}}>
                                     <TouchableHighlight style={[styles.buttonContainer, styles.sTButton,{color: '#8abbc6',}]} onPress={() => this.save_button_action(2)} >
-                                        <Text style={styles.signUpText,{color: '#8abbc6',}}> حفظ </Text>
+                                        <Text style={styles.signUpText,{color: '#8abbc6',}}> حـفـظ </Text>
+
+                                    </TouchableHighlight>
+                                    <TouchableHighlight style={[styles.buttonContainer, styles.sTButton]} onPress={() => this.cancelSave ()} >
+                                        <Text style={styles.signUpText}> إلـغـاء </Text>
                                     </TouchableHighlight>
                                     {/* <TouchableHighlight style={[styles.buttonContainer, styles.sTButton]} onPress={() => this.setState({date_picker_display: true})} >
                                         <Text style={styles.signUpText}> المؤقت </Text>
@@ -1503,7 +1528,7 @@ return polygon
                             </View>
                         {
                             this.state.evening_toggle &&
-                            <View style = {{width: '100%', marginTop: 15}}>
+                            <View style = {{width: '100%', marginTop: 15 ,   marginBottom:60}}>
                                 <Text style={styles.routineTimeStyle}>{this.state.timeText} </Text>
                                 <ScrollView style = {{width: '100%', height: 80}} horizontal = {true}>
                                 {
@@ -1581,10 +1606,13 @@ return polygon
                                 </ScrollView>
                                 <View style = {{width: '100%', flexDirection: 'row', justifyContent: 'space-around'}}>
                                     <TouchableHighlight style={[styles.buttonContainer, styles.sTButton,{color: '#8abbc6',}]} onPress={() => this.save_button_action(3)} >
-                                        <Text style={styles.signUpText,{color: '#8abbc6',}}> حفظ </Text>
+                                        <Text style={styles.signUpText,{color: '#8abbc6',}}> حـفـظ </Text>
                                     </TouchableHighlight>
                                     <TouchableHighlight style={[styles.buttonContainer, styles.sTButton]} onPress={() => this.setState({date_picker_display: true})} >
-                                        <Text style={styles.signUpText}> المؤقت </Text>
+                                        <Text style={styles.signUpText}> المؤقـت </Text>
+                                    </TouchableHighlight>
+                                    <TouchableHighlight style={[styles.buttonContainer, styles.sTButton]} onPress={() => this.cancelSave ()} >
+                                        <Text style={styles.signUpText}> إلـغـاء </Text>
                                     </TouchableHighlight>
                                 </View>
                                 <Modal
@@ -1776,7 +1804,6 @@ const styles = StyleSheet.create({
      shadowOpacity: 0.1,
      opacity: 0.9,
   },
- 
   perInfo:{
     color: '#9F9F9F',
     fontSize: 20,

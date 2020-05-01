@@ -1,5 +1,5 @@
 import React ,{ Component } from 'react';
-import { ScrollView,
+import { ScrollView,Modal,
     StyleSheet,
     Text,
     View,
@@ -28,6 +28,8 @@ export default class profileScreen extends Component {
           email: "",
           password: "",
           confPassword: "",
+          info:"",
+          saveModal:false,
           // errorMsg:null,
           latitude:0,
           longitude:0,
@@ -46,6 +48,20 @@ export default class profileScreen extends Component {
           nameBorders:"#3E82A7",
         }
     }
+    showSaveModal = () => {
+      console.log('showModal')
+    this.setState({
+    
+        
+      saveModal: true
+    });
+    setTimeout(() => {
+      this.setState({
+       
+        saveModal:false
+      })
+      }, 4000);
+  }
 
     UNSAFE_componentWillMount(){
 
@@ -155,18 +171,6 @@ export default class profileScreen extends Component {
 
         }
 
-
-        storeData = async () => {
-// here to store
-          try {
-
-            var billAmount = { 'value' : this.state.amount};
-            await AsyncStorage.setItem('bill',60);
-          } catch (error) {
-
-          }
-
-        }
     editProfile = () => {
 
 
@@ -276,7 +280,13 @@ if (this.state.amount != 0 && this.state.amount <= 9999){
 
 
         }else {
-          alert("يجب ان تكون الفاتوره ضمن النطاق من ٠ الى ٩٩٩٩");
+          this.setState({
+            info:"يجب ان تكون الفاتوره ضمن النطاق من ٠ الى ٩٩٩٩ ",
+          
+      
+        })
+        this.showSaveModal();
+        
           console.log("user changePassword val "+this.state.changePassword);
           console.log(this.state.password );
           console.log(this.state.confPassword);
@@ -319,7 +329,13 @@ if (this.state.amount != 0 && this.state.amount <= 9999){
         this.setState({nameBorders: '#3E82A7'})
         this.setState({passwordBorder: '#3E82A7'})
         this.setState({conPasswordBorder: '#3E82A7'})
-        Alert.alert('تم تحديث بياناتك بنجاح');
+        this.setState({
+          info:"تم تحديث بياناتك بنجاح ",
+        
+    
+      })
+      this.showSaveModal();
+       
         this.props.navigation.navigate('HomeStack');
       }
 
@@ -525,6 +541,21 @@ if (this.state.amount != 0 && this.state.amount <= 9999){
                         </View>
                     </ImageBackground>
                 </View>
+                <View>
+        <Modal
+                               animationType="slide"
+                                 transparent={true}
+                                 visible={this.state.saveModal}
+                                 onRequestClose={() => {
+                                    console.log('Modal has been closed.');}}>
+                                   
+                                <View style={styles.centeredView}>
+                              <View style={styles.modalView}>
+                                 <Text style={styles.modelStyle}>{this.state.info}</Text>
+                             </View>
+                              </View>
+                                    </Modal>
+                                    </View>
             </View>
         );
     }
@@ -573,7 +604,37 @@ profileScreen.navigationOptions = ({navigation})=> ({
 });
 
 const styles = StyleSheet.create({
-
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 22
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  modelStyle: {
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: '#8abbc6',
+    marginLeft:10,
+    
+    marginBottom:20,
+    
+  },
 
   header:{
     marginTop:150,
