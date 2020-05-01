@@ -3,7 +3,6 @@ import {
   StyleSheet, AppState,
   View,Modal,
   Platform,
-  AsyncStorage,
   Image, Text
 } from "react-native";
 import * as FileSystem from "expo-file-system";
@@ -26,6 +25,7 @@ import firebaseInitial from './constants/FireBase.js';
 import { incCounter, stopCounter, setCounter } from "./actions/count";
 import { toggleLight } from "./actions/light";
 const BACKGROUND_FETCH_TASK = 'background-fetch';
+import { AsyncStorage } from 'react-native';
 const recordingOptions = {
   android: {
     extension: ".m4a",
@@ -75,7 +75,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#8abbc6',
     marginLeft:10,
-    
     marginBottom:20,
     
   },
@@ -87,15 +86,16 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: 90,
     height: 90,
-    top: 65,
+    //top: 65,
+    bottom:-55,
 
   },
   Indicator1: {
     alignSelf: 'center',
     width: 90,
     height: 90,
-    top: 65,
-
+    //top: 65,
+    bottom:-55,
   },
 
   text: {

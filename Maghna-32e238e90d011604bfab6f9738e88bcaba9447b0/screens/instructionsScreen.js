@@ -24,7 +24,7 @@ import * as FileSystem from 'expo-file-system';
 import * as Permissions from 'expo-permissions';
 import axios from 'axios'
 import { Audio } from 'expo-av';
-
+import { AsyncStorage } from 'react-native';
 const soundObject = new Audio.Sound();
 
 export default class instructionsScreen extends Component {

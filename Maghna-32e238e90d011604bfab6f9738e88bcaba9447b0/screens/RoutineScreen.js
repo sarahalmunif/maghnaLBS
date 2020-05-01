@@ -1692,7 +1692,7 @@ RoutineScreen.navigationOptions = ({navigation})=> ({
     <TouchableOpacity onPress={()=>{navigation.navigate('Home')}} style={{marginRight:15}}>
       <AntDesign name="right" size={24} color="#fff"  />
     </TouchableOpacity>
-
+ 
   ),*/
   headerLeft:navigation.state.params && navigation.state.params.headerLeft,
   headerStyle: {
