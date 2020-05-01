@@ -85,16 +85,16 @@ const styles = StyleSheet.create({
   },
   Indicator: {
     alignSelf: 'center',
-    width: 110,
-    height: 110,
-    top: 90,
+    width: 90,
+    height: 90,
+    top: 65,
 
   },
   Indicator1: {
     alignSelf: 'center',
-    width: 110,
-    height: 110,
-    top: 90,
+    width: 90,
+    height: 90,
+    top: 65,
 
   },
 
@@ -1564,8 +1564,8 @@ class SpeechToTextButton extends Component {
         // onPressOut={this.handleOnPressOut}
         >
 
-          {isFetching && <Image source={require('./crop2.gif')} style={styles.Indicator} />}
-          {!isFetching && <Image source={require('./crop.gif')} style={styles.Indicator1} />}
+          {isFetching && <Image source={require('./crop(2).gif')} style={styles.Indicator} />}
+          {!isFetching && <Image source={require('./crop(1).gif')} style={styles.Indicator1} />}
         </View>
         <View>
         <Modal
