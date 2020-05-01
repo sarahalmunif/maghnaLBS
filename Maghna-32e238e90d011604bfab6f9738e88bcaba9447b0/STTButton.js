@@ -616,7 +616,7 @@ if(transcript == "وضع العوده" ){
   console.log("innnnn");
 
 }
-
+//Get the transcript for edit routine
   if(routineArr[0]=='morning routine' || routineArr[0]=='night routine'
    || routineArr[0]=='leave routine' ||routineArr[0]=='back routine')
    {
@@ -1000,7 +1000,7 @@ if(transcript == "حفظ")
 
 
   async routineSpeechValidate(){
-    
+    //This method check if the user uttered everthing in the right sequenc.
     if(routineArr[0]==='morning routine')
     {
       if (routineArr.length == 5 ){
@@ -1013,14 +1013,12 @@ if(transcript == "حفظ")
           
         }
         else{
-           // here alerat with aduio 
            routineArr=[];
            alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات" );
 
         }
       }
       else{
-       // here alerat with aduio 
        routineArr=[];
        alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات" );
       }
@@ -1037,13 +1035,11 @@ if(transcript == "حفظ")
           
         }
         else{
-          // here alerat with aduio 
           routineArr=[];
           alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات" );
         }
     }
     else{
-      // here alerat with aduio 
       routineArr=[];
       alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات" );
     }
@@ -1126,8 +1122,7 @@ save_button_action(index) {
 
   
 
-      //var routineTable =  firebase.database().ref('routine/'); 
-   // this.setActionTable();
+     
       
       if(index==0) {
           flagH = false ;
@@ -1151,7 +1146,7 @@ save_button_action(index) {
            
            if(lat === 0 && lng===0){
             
-                //here alerat with aduio 
+              
                 alert(    "عذراً، عليك تفعيل خاصية الموقع حتى يتم انشاء وضع الخروج");
                 
            }// end if check location
@@ -1162,7 +1157,7 @@ save_button_action(index) {
            disRoutine = "وضع الخروج";
            flag = true
            routineTime = "empty"
-           // check location
+         
          
           
                   if(routineArr[1]==='turnOnLight'){
@@ -1171,14 +1166,14 @@ save_button_action(index) {
                   else{
                     actions.push("002");
                   }
-      }//end loop
+      }
 
       }// end if for leave routine
        else if(index==2) {
           if(lat === 0 && lng===0){
              
             
-               //here alerat with aduio
+              
                routineArr=[];
                alert( "عذراً، عليك تفعيل خاصية الموقع حتى يتم انشاء وضع العودة");
            }
@@ -1190,7 +1185,7 @@ save_button_action(index) {
           disRoutine="وضع العودة";
           routineTime = "empty"
           flag =true
-          // set If cindition for check location
+          
           
           if(routineArr[1]==='turnOnLight'){
             actions.push("001");
@@ -1221,7 +1216,7 @@ save_button_action(index) {
     
       }//end if for night routine
      
- 
+ // save the routine in the database 
        if (( routineName == "morning routine" || routineName == "night routine" )){
         
            console.log("in if save")

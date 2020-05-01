@@ -225,8 +225,9 @@ snapshot.forEach(item => {
   return BackgroundFetch.Result.NewData;
 });
 TaskManager.defineTask('locationTask', async ({ data, error }) => {
+  //The code that will excute if the user enter or leave his/her home location
   if (error) {
-    // Error occurred - check `error.message` for more details.
+    
     console.log("I am at defienTask with error" );
     return;
   }
@@ -236,13 +237,7 @@ TaskManager.defineTask('locationTask', async ({ data, error }) => {
    console.log("I am at defienTask with data" );
    console.log("Location "+ locations );
     console.log("data region "+data.region.state);
-   // const polygon = RoutineScreen.createPolygon();
-   /* const point= {
-        lat: locations.coords.latitude,
-        lng: locations.coords.longitude
-    };*/
-  //  GeoFencing.containsLocation(point,polygon)
-   // .then(() =>
+ 
    console.log("before database");
     firebase.database().ref('routine/').once('value',(snap)=>{ 
         snap.forEach((child)=>{
