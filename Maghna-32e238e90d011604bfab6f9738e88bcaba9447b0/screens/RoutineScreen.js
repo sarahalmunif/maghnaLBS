@@ -222,7 +222,7 @@ measurementId: "G-R3BQPCTCTM"
 //await AsyncStorage.setItem('lngPoint',lng);
            
 try{
-
+// the code the will track user location if he/she enter his home location or not(even the app in the background)
 
 let { status} = await Location.requestPermissionsAsync();
 
@@ -231,15 +231,13 @@ if(status !=='granted'){
 
 }
 else {
-   // await Location.startLocationUpdatesAsync('locationTask', {
-    //    accuracy: Location.Accuracy.Balanced,
-    //  });
+ 
     if(!(lat==='0'&& lng==='0')){
     Location.startGeofencingAsync('locationTask',[
         {
             "identifier": "A",
-            "latitude": lat,//await AsyncStorage.getItem('latPoint'),
-            "longitude": lng, //await AsyncStorage.getItem('lngPoint'),
+            "latitude": lat,
+            "longitude": lng, 
             "notifyOnEnter": true,
             "notifyOnExit": true,
             "radius":100
