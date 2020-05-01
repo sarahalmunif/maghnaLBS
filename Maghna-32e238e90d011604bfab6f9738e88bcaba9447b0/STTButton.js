@@ -824,301 +824,366 @@ if(transcript == "ايقاف النور")
       }
     }
 
-    if (routineArr.length == 2) {
-      if (transcipt == "الساعة الواحدة صباحاً") {
-        // hours = 01
-        routineArr.push(0)
-      }
-      if (transcipt == "الساعة الثانية صباحاً") {
-        // hours = 02
+    
+
+    if (routineArr.length == 2 ){
+      if(transcript == "الواحده"){
+       // hours = 01
         routineArr.push(1)
-      }
-      if (transcipt == "الساعة الثالثة صباحاً") {
+        console.log("onneeee");
+    }
+     if(transcript == "الثانيه"){
+       // hours = 02
+        routineArr.push(2)
+    }
+    if(transcript == "الثالثه"){
         //hours = 03
-        routineArr.push(2)
-      }
-      if (transcipt == "الساعة الرابعة صباحاً") {
-        // hours = 04
         routineArr.push(3)
-      }
-      if (transcipt == "الساعة الخامسة صباحاً") {
-        // hours = 05
-        routineArr.push(4)
-      }
-      if (transcipt == "الساعة السادسة صباحاً") {
-        // hours = 06
-        routineArr.push(5)
-      }
-      if (transcipt == "الساعة السابعة صباحاً") {
-        // hours = 07
-        routineArr.push(6)
-      }
-      if (transcipt == "الساعة الثامنة صباحاً") {
-        // hours = 08
-        routineArr.push(7)
-      }
-      if (transcipt == "الساعة التاسعة صباحاً") {
-        // hours = 09
-        routineArr.push(8)
-      }
-      if (transcipt == "الساعة العاشرة صباحاً") {
-        //  hours = 10
-        routineArr.push(9)
-      }
-      if (transcipt == "الساعة الحادية عشر صباحاً") {
-        // hours = 11
-        routineArr.push(10)
-      }
-      if (transcipt == "الساعة الثانية عشر صباحاً") {
-        // hours = 12
-        routineArr.push(11)
-      }
     }
-
-    if (routineArr.length == 3) {
-      if (transcipt == "دقيقة") {
-        // mins= 01
-        routineArr.push(1)
-      }
-      if (transcipt == "دقيقتان") {
-        // mins= 02
-        routineArr.push(2)
-      }
-      if (transcipt == "ثلاث دقائق") {
-        // mins= 03
-        routineArr.push(3)
-      }
-      if (transcipt == "أربع دقائق") {
-        //  mins= 04
+    if(transcript == "الرابعه"){
+       // hours = 04
         routineArr.push(4)
-      }
-      if (transcipt == "خمس دقائق") {
-        // mins= 05
+    }
+     if(transcript == "الخامسه"){
+       // hours = 05
         routineArr.push(5)
-      }
-      if (transcipt == "ست دقائق") {
-        // mins= 06
+    }
+     if(transcript == "السادسه"){
+       // hours = 06
         routineArr.push(6)
-      }
-      if (transcipt == "سبع دقائق") {
-        // mins= 07
+    }
+     if(transcript == "السابعه"){
+       // hours = 07
         routineArr.push(7)
-      }
-      if (transcipt == "ثمان دقائق") {
-        // mins= 08
+    }
+     if(transcript == "الثامنه"){
+       // hours = 08
         routineArr.push(8)
-      }
-      if (transcipt == "تسع دقائق") {
-        // mins= 09
+    }
+      if(transcript == "التاسعه"){
+       // hours = 09
         routineArr.push(9)
-      }
-
-      if (transcipt == "عشر دقائق") {
-        // mins= 10
+    }
+     if(transcript == "العاشره"){
+      //  hours = 10
         routineArr.push(10)
-      }
-      if (transcipt == "احدى عشر دقيقة") {
-        // mins= 11
+    }
+    if(transcript == "الحاديه عشر"){
+       // hours = 11
         routineArr.push(11)
-      }
-      if (transcipt == "اثنا عشر دقيقة") {
-        // mins= 12
+    }
+    if(transcript == "الثانيه عشر"){
+       // hours = 12
         routineArr.push(12)
-      }
-      if (transcipt == "ثلاث عشر دقيقة") {
-        // mins= 13
-        routineArr.push(13)
-      }
-      if (transcipt == "اربعة عشر دقيقة") {
-        // mins= 14
-        routineArr.push(14)
-      }
-      if (transcipt == "خمسة عشر دقيقة") {
-        // mins= 15
-        routineArr.push(15)
-      }
-      if (transcipt == " ستة عشر دقيقة") {
-        //  mins= 16
-        routineArr.push(16)
-      }
-      if (transcipt == "سبعة عشر دقيقة") {
-        //  mins= 17
-        routineArr.push(17)
-      }
-      if (transcipt == "ثمانية عشر دقيقة") {
-        // mins= 18
-        routineArr.push(18)
-      }
-      if (transcipt == "تسعة عشر دقيقة") {
-        //  mins= 19
-        routineArr.push(19)
-      }
-      if (transcipt == " عشرون دقيقة") {
-        //mins= 20
-        routineArr.push(20)
-      }
-      if (transcipt == " واحد وعشرون دقيقة") {
-        // mins= 21
-        routineArr.push(21)
-      }
-      if (transcipt == " اثنان وعشرون دقيقة") {
-        // mins= 22
-        routineArr.push(22)
-      }
-      if (transcipt == " ثلاث وعشرون دقيقة") {
-        //mins= 23
-        routineArr.push(23)
-      }
-      if (transcipt == " اربعة وعشرون دقيقة") {
-        // mins= 24
-        routineArr.push(24)
-      }
-      if (transcipt == " خمسة وعشرون دقيقة") {
-        // mins= 25
-        routineArr.push(25)
-      }
-      if (transcipt == " ستة وعشرون دقيقة") {
-        // mins= 26
-        routineArr.push(26)
-      }
-      if (transcipt == " سبعة وعشرون دقيقة") {
-        // mins= 27
-        routineArr.push(27)
-      }
-      if (transcipt == "ثمانية وعشرون دقيقة") {
-        // mins= 28
-        routineArr.push(28)
-      }
-      if (transcipt == "تسعة وعشرون دقيقة") {
-        //  mins= 29
-        routineArr.push(29)
-      }
-      if (transcipt == "ثلاثون دقيقة") {
-        //  mins= 30
-        routineArr.push(30)
-      }
-      if (transcipt == "واحد وثلاثون دقيقة") {
-        //  mins= 31
-        routineArr.push(31)
-      }
-      if (transcipt == "اثنان وثلاثون دقيقة") {
-        //  mins= 32
-        routineArr.push(32)
-      }
-      if (transcipt == "ثلاث وثلاثون دقيقة") {
-        //  mins= 33
-        routineArr.push(33)
-      }
-      if (transcipt == "اربعة وثلاثون دقيقة") {
-        // mins= 34
-        routineArr.push(34)
-      }
-      if (transcipt == "خمسة وثلاثون دقيقة") {
-        //  mins= 35
-        routineArr.push(35)
-      }
-      if (transcipt == "ستة وثلاثون دقيقة") {
-        //  mins= 36
-        routineArr.push(36)
-      }
-      if (transcipt == "سبعة وثلاثون دقيقة") {
-        //  mins= 37
-        routineArr.push(37)
-      }
-      if (transcipt == "ثمانية وثلاثون دقيقة") {
-        //  mins= 38
-        routineArr.push(38)
-      }
-      if (transcipt == "تسعة وثلاثون دقيقة") {
-        //  mins= 39
-        routineArr.push(39)
-      }
-      if (transcipt == "اربعون دقيقة") {
-        //  mins= 40
-        routineArr.push(40)
-      }
-      if (transcipt == "واحد واربعون دقيقة") {
-        //  mins= 41
-        routineArr.push(41)
-      }
-      if (transcipt == "اثنان واربعون دقيقة") {
-        //  mins= 42
-        routineArr.push(42)
-      }
-      if (transcipt == "ثلاث واربعون دقيقة") {
-        //  mins= 43
-        routineArr.push(43)
-      }
-      if (transcipt == "اربعة واربعون دقيقة") {
-        //  mins= 44
-        routineArr.push(44)
-      }
-      if (transcipt == "خمسة واربعون دقيقة") {
-        //  mins= 45
-        routineArr.push(45)
-      }
-      if (transcipt == "ستة واربعون دقيقة") {
-        // mins= 46
-        routineArr.push(46)
-      }
-      if (transcipt == "سبعة واربعون دقيقة") {
-        //  mins= 47
-        routineArr.push(47)
-      }
-      if (transcipt == "ثمانية واربعون دقيقة") {
-        //  mins= 48
-        routineArr.push(48)
-      }
-      if (transcipt == "تسعة واربعون دقيقة") {
-        //  mins= 49
-        routineArr.push(49)
-      }
-      if (transcipt == "خمسون دقيقة") {
-        //  mins= 50
-        routineArr.push(50)
-      }
-      if (transcipt == "واحد وخمسون دقيقة") {
-        //  mins= 51
-        routineArr.push(51)
-      }
-      if (transcipt == "اثنان وخمسون دقيقة") {
-        //  mins= 52
-        routineArr.push(52)
-      }
-      if (transcipt == "ثلاث وخمسون دقيقة") {
-        //  mins= 53
-        routineArr.push(53)
-      }
-      if (transcipt == "اربعة وخمسون دقيقة") {
-        //  mins= 54
-        routineArr.push(54)
-      }
-      if (transcipt == "خمسة وخمسون دقيقة") {
-        //  mins= 55
-        routineArr.push(55)
-      }
-      if (transcipt == "ستة وخمسون دقيقة") {
-        //  mins= 56
-        routineArr.push(56)
-      }
-      if (transcipt == "سبعة وخمسون دقيقة") {
-        //  mins= 57
-        routineArr.push(57)
-      }
-      if (transcipt == "ثمانية وخمسون دقيقة") {
-        //  mins= 58
-        routineArr.push(58)
-      }
-      if (transcipt == "تسعة وخمسون دقيقة") {
-        //  mins= 59
-        routineArr.push(59)
-      }
+        console.log("1122222");
     }
-    if (transcript == "حفظ") {
+    if(transcript == "الثالثه عشر"){
+      // hours = 12
+       routineArr.push(13)
+    }
+    if(transcript == "الرابعه عشر"){
+      // hours = 12
+       routineArr.push(14)
+    }
+    if(transcript == "الخامسه عشر"){
+      // hours = 12
+       routineArr.push(15)
+    }
+    if(transcript == "السادسه عشر"){
+      // hours = 12
+       routineArr.push(16)
+    }
+    if(transcript == "السابعه عشر"){
+      // hours = 12
+       routineArr.push(17)
+    }
+    if(transcript == "الثامنه عشر"){
+      // hours = 12
+       routineArr.push(18)
+    }
+    if(transcript == "التاسعه عشر"){
+      // hours = 12
+       routineArr.push(19)
+    }
+    if(transcript == "عشرون"){
+      // hours = 12
+       routineArr.push(20)
+    }
+    
+    if(transcript == "الواحده والعشرون"){
+      // hours = 12
+       routineArr.push(21)
+    }
+    
+    if(transcript == "الثانيه والعشرون"){
+      // hours = 12
+       routineArr.push(22)
+    }
+    if(transcript == "الثالثه والعشرون"){
+      // hours = 12
+       routineArr.push(23)
+    }
+    
+    if(transcript == "الرابعه والعشرون"){
+      // hours = 12
+       routineArr.push(24)
+    }
+    }
+    
+    if(routineArr.length ==  3){
+    if(transcript == "دقيقه"){
+       // mins= 01
+       routineArr.push('01') 
+    }
+    if(transcript == "دقيقتان"){
+       // mins= 02
+       routineArr.push('02') ;
+       console.log("twwooo");
+    }
+    if(transcript == "ثلاث دقائق"){
+       // mins= 03
+       routineArr.push('03') 
+    }
+    if(transcript == "أربع دقائق"){
+      //  mins= 04
+       routineArr.push('04') 
+    }
+     if(transcript == "خمس دقائق"){
+       // mins= 05
+       routineArr.push('05') 
+    }
+    if(transcript == "ست دقائق"){
+       // mins= 06
+       routineArr.push('06') 
+    }
+     if(transcript == "سبع دقائق"){
+       // mins= 07
+       routineArr.push('07') 
+    }
+     if(transcript == "ثمان دقائق"){
+       // mins= 08
+       routineArr.push('08') 
+    }
+     if(transcript == "تسع دقائق"){
+       // mins= 09
+       routineArr.push('09') 
+    }
+    
+     if(transcript == "عشر دقائق"){
+       // mins= 10
+       routineArr.push(10) 
+       console.log("1000000");
+    }
+     if(transcript == "احدى عشر دقيقه"){
+       // mins= 11
+       routineArr.push(11) 
+    }
+     if(transcript == "اثنا عشر دقيقه"){
+       // mins= 12
+       routineArr.push(12) 
+    }
+     if(transcript == "ثلاث عشر دقيقه"){
+       // mins= 13
+       routineArr.push(13) 
+    }
+     if(transcript == "اربعه عشر دقيقه"){
+       // mins= 14
+       routineArr.push(14) 
+    }
+     if(transcript == "خمسه عشر دقيقه"){
+       // mins= 15
+       routineArr.push(15) 
+    }
+      if(transcript == "سته عشر دقيقه"){
+      //  mins= 16
+       routineArr.push(16) 
+    }
+      if(transcript == "سبعه عشر دقيقه"){
+      //  mins= 17
+       routineArr.push(17) 
+    }
+      if(transcript == "ثمانيه عشر دقيقه"){
+       // mins= 18
+       routineArr.push(18) 
+    }
+      if(transcript == "تسعه عشر دقيقه"){
+      //  mins= 19
+       routineArr.push(19) 
+    }
+       if(transcript == "عشرون دقيقه"){
+        //mins= 20
+       routineArr.push(20) 
+    }
+       if(transcript == "واحد وعشرون دقيقه"){
+       // mins= 21
+       routineArr.push(21) 
+    }
+    if(transcript == "اثنان وعشرون دقيقه"){
+       // mins= 22
+       routineArr.push(22) 
+    }
+    if(transcript == "ثلاث وعشرون دقيقه"){
+    //mins= 23
+       routineArr.push(23) 
+    }
+    if(transcript == "اربعه وعشرون دقيقه"){
+       // mins= 24
+       routineArr.push(24) 
+    }
+    if(transcript == "خمسه وعشرون دقيقه"){
+       // mins= 25
+       routineArr.push(25) 
+    }
+    if(transcript == "سته وعشرون دقيقه"){
+       // mins= 26
+       routineArr.push(26) 
+    }
+    if(transcript == "سبعه وعشرون دقيقه"){
+       // mins= 27
+       routineArr.push(27) 
+    }
+    if(transcript == "ثمانيه وعشرون دقيقه"){
+       // mins= 28
+       routineArr.push(28) 
+    }
+    if(transcript == "تسعه وعشرون دقيقه"){
+      //  mins= 29
+       routineArr.push(29) 
+    }
+    if(transcript == "ثلاثون دقيقه"){
+      //  mins= 30
+       routineArr.push(30) 
+       console.log("33300000");
+    }
+     if(transcript == "واحد وثلاثون دقيقه"){
+      //  mins= 31
+       routineArr.push(31) 
+    }
+    if(transcript == "اثنان وثلاثون دقيقه"){
+      //  mins= 32
+       routineArr.push(32) 
+    }
+    if(transcript == "ثلاث وثلاثون دقيقه"){
+      //  mins= 33
+       routineArr.push(33) 
+    }
+    if(transcript == "اربعه وثلاثون دقيقه"){
+       // mins= 34
+       routineArr.push(34) 
+    }
+    if(transcript == "خمسه وثلاثون دقيقه"){
+      //  mins= 35
+       routineArr.push(35) 
+    }
+    if(transcript == "سته وثلاثون دقيقه"){
+      //  mins= 36
+       routineArr.push(36) 
+    }
+    if(transcript == "سبعه وثلاثون دقيقه"){
+      //  mins= 37
+       routineArr.push(37) 
+    }
+    if(transcript == "ثمانيه وثلاثون دقيقه"){
+      //  mins= 38
+       routineArr.push(38) 
+    }
+    if(transcript == "تسعه وثلاثون دقيقه"){
+      //  mins= 39
+       routineArr.push(39) 
+    }
+    if(transcript == "اربعون دقيقه"){
+      //  mins= 40
+       routineArr.push(40) 
+    }
+    if(transcript == "واحد واربعون دقيقه"){
+      //  mins= 41
+       routineArr.push(41) 
+    }
+     if(transcript == "اثنان واربعون دقيقه"){
+      //  mins= 42
+       routineArr.push(42) 
+    }
+     if(transcript == "ثلاث واربعون دقيقه"){
+      //  mins= 43
+       routineArr.push(43) 
+    }
+     if(transcript == "اربعه واربعون دقيقه"){
+      //  mins= 44
+       routineArr.push(44) 
+    }
+     if(transcript == "خمسه واربعون دقيقه"){
+      //  mins= 45
+       routineArr.push(45) 
+    }
+     if(transcript == "سته واربعون دقيقه"){
+       // mins= 46
+       routineArr.push(46) 
+    }
+     if(transcript == "سبعه واربعون دقيقه"){
+      //  mins= 47
+       routineArr.push(47) 
+    }
+     if(transcript == "ثمانيه واربعون دقيقه"){
+      //  mins= 48
+       routineArr.push(48) 
+    }
+     if(transcript == "تسعه واربعون دقيقه"){
+      //  mins= 49
+       routineArr.push(49) 
+    }
+     if(transcript == "خمسون دقيقه"){
+      //  mins= 50
+       routineArr.push(50) 
+    }
+     if(transcript == "واحد وخمسون دقيقه"){
+      //  mins= 51
+       routineArr.push(51) 
+    }
+      if(transcript == "اثنان وخمسون دقيقه"){
+      //  mins= 52
+       routineArr.push(52) 
+    }
+      if(transcript == "ثلاث وخمسون دقيقه"){
+      //  mins= 53
+       routineArr.push(53) 
+    }
+      if(transcript == "اربعه وخمسون دقيقه"){
+      //  mins= 54
+       routineArr.push(54) 
+    }
+      if(transcript == "خمسه وخمسون دقيقه"){
+      //  mins= 55
+       routineArr.push(55) 
+    }
+      if(transcript == "سته وخمسون دقيقه"){
+      //  mins= 56
+       routineArr.push(56) 
+    }
+      if(transcript == "سبعه وخمسون دقيقه"){
+      //  mins= 57
+       routineArr.push(57) 
+    }
+      if(transcript == "ثمانيه وخمسون دقيقه"){
+      //  mins= 58
+       routineArr.push(58) 
+    }
+      if(transcript == "تسعه وخمسون دقيقه"){
+      //  mins= 59
+       routineArr.push(59) 
+    }
+    if(transcript == "تماما"){
+      //  mins= 59
+       routineArr.push(0) 
+    }
+    
+    }
+    if(transcript == "حفظ")
+    {
       routineArr.push('save');
       console.log("sssaaaaavvveee");
+      console.log("the lengthis "+routineArr.length)
       this.routineSpeechValidate();
-
+    
     }
   };
 
