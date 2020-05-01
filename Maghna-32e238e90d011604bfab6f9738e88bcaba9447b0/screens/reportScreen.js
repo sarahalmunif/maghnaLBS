@@ -410,12 +410,6 @@ const mapStateToProps = (state) => {
     };
 }
 
-
-export default connect(mapStateToProps)(reportScreen);
-
-
-
-
 reportScreen.navigationOptions = ({ navigation }) => ({
 
     headerTitle: 'التقارير',
@@ -437,6 +431,12 @@ reportScreen.navigationOptions = ({ navigation }) => ({
         color: '#fff'
     }
 });
+export default connect(mapStateToProps)(reportScreen);
+
+
+
+
+
 
 
 const styles = StyleSheet.create({
