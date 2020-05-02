@@ -87,7 +87,8 @@ const styles = StyleSheet.create({
     width: 90,
     height: 90,
     //top: 65,
-    bottom:-55,
+    bottom:-100,
+    position:'absolute'
 
   },
   Indicator1: {
@@ -95,7 +96,8 @@ const styles = StyleSheet.create({
     width: 90,
     height: 90,
     //top: 65,
-    bottom:-55,
+    bottom:-100,
+    position:'absolute'
   },
 
   text: {
@@ -745,14 +747,13 @@ class SpeechToTextButton extends Component {
 
     }
 
-    if (transcript == "تفعيل الخروج ") {
+    if (transcript == "تفعيل الخروج") {
+
       this.props.update(true, 3);
 
     }
-    if (transcript == "تفعيل العوده ") {
+    if (transcript == "تفعيل العوده") {
       this.props.update(true, 1);
-
-
     }
 
     if (transcript == "الغاء الصباحي") {
@@ -802,7 +803,7 @@ if(transcript == "وضع العوده" ){
 
 }
  
-if(transcript == "ايقاف النور")
+if(transcript == "إغلاق النور")
 {
   routineArr.push('turnOffLight');
   console.log("offff")
@@ -820,7 +821,7 @@ if(transcript == "ايقاف النور")
         console.log("llllliiighhhttt");
       }
 
-      if (transcript == "إغلاق النور") {
+      if (transcript == "إيقاف النور") {
         routineArr.push('turnOffLight');
       }
     }
@@ -837,47 +838,58 @@ if(transcript == "ايقاف النور")
        // hours = 02
         routineArr.push(2)
     }
+
     if(transcript == "الثالثه"){
         //hours = 03
         routineArr.push(3)
     }
+
     if(transcript == "الرابعه"){
        // hours = 04
         routineArr.push(4)
     }
+
      if(transcript == "الخامسه"){
        // hours = 05
         routineArr.push(5)
     }
+
      if(transcript == "السادسه"){
        // hours = 06
         routineArr.push(6)
     }
+
      if(transcript == "السابعه"){
        // hours = 07
         routineArr.push(7)
     }
+
      if(transcript == "الثامنه"){
        // hours = 08
         routineArr.push(8)
     }
+
       if(transcript == "التاسعه"){
        // hours = 09
         routineArr.push(9)
     }
+
      if(transcript == "العاشره"){
       //  hours = 10
         routineArr.push(10)
     }
+
     if(transcript == "الحاديه عشر"){
        // hours = 11
         routineArr.push(11)
     }
+
     if(transcript == "الثانيه عشر"){
        // hours = 12
         routineArr.push(12)
         console.log("1122222");
     }
+
     if(transcript == "الثالثه عشر"){
       // hours = 12
        routineArr.push(13)
@@ -886,6 +898,7 @@ if(transcript == "ايقاف النور")
       // hours = 12
        routineArr.push(14)
     }
+    
     if(transcript == "الخامسه عشر"){
       // hours = 12
        routineArr.push(15)
@@ -1676,8 +1689,8 @@ if(transcript == "ايقاف النور")
         // onPressOut={this.handleOnPressOut}
         >
 
-          {isFetching && <Image source={require('./crop(1).gif')} style={styles.Indicator} />}
-          {!isFetching && <Image source={require('./crop(2).gif')} style={styles.Indicator1} />}
+          {isFetching && <Image source={require('./crop(2).gif')} style={styles.Indicator} />}
+          {!isFetching && <Image source={require('./crop(1).gif')} style={styles.Indicator1} />}
         </View>
         <View>
         <Modal
