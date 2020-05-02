@@ -30,6 +30,8 @@ export default class SignUP extends Component{
   isActive:true,
   info:"",
   saveModal:false,
+  count:0
+  ,
 
   passwordBorder:'#3E82A7',
   conPasswordBorder:'#3E82A7',
@@ -262,6 +264,7 @@ handelSignUp =() =>{
             longitude:this.state.longitude,
             amount:this.state.amount,
             isActive:this.state.isActive,
+            count:this.state.count,
           })
 
          this.props.navigation.navigate('SignIn')

@@ -46,6 +46,7 @@ export default class profileScreen extends Component {
           passError:'none',
           errorMsg:null,
           nameBorders:"#3E82A7",
+          count:0
         }
     }
     showSaveModal = () => {
@@ -127,6 +128,8 @@ export default class profileScreen extends Component {
           longitude:snapshot.val().longitude,
           amount:snapshot.val().amount+" ",
           isActive:snapshot.val().isActive,
+          count:snapshot.val().count,
+
         });
         console.log(this.state.amount)
         console.log(JSON.stringify(snapshot))

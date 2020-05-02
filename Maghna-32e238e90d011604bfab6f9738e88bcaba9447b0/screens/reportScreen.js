@@ -202,8 +202,8 @@ class reportScreen extends Component {
 
     _calcuateConsumptionAndReport = async () => {
 
-        console.log("sate amount: ",this.state.amount);
-
+        console.log("Here in calc sate amount: ",this.state.amount);
+         console.log(this.props.currentCount+"calc current time")
         try {
             const curTime = this.props.currentCount;
             const amount = this.state.amount;
