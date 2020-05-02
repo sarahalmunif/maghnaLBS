@@ -20,6 +20,7 @@ import moment from 'moment';
 import NavigationService from "../navigation/NavigationService";
 import { connect } from 'react-redux';
 import { updateToggle } from '../actions/toggle';
+console.disableYellowBox= true;
 
 class HomeScreen extends Component {
 
