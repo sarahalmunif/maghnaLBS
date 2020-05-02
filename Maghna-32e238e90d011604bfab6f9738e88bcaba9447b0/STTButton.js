@@ -371,7 +371,7 @@ class SpeechToTextButton extends Component {
                 );
               }
               else if (temp.actionsID.indexOf("002") != -1) {
-                axios.put('https://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
+                axios.put('http://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
                   { on: false })
                  // .then(res => res.json())
                  console.log('I turn off');
@@ -1199,10 +1199,11 @@ if(transcript == "ايقاف النور")
       if (routineArr.length == 5 ){
         if(routineArr[1]==='turnOffLight' ||routineArr[1]==='turnOnLight'  )
         {
-             if(routineArr[4]==='save'){
-             this.save_button_action(0);
+          if(routineArr[4]==='save')
+          {
+            this.save_button_action(0);
 
-        }
+       }
         else {
           // here alerat with aduio 
           routineArr = [];
@@ -1218,6 +1219,7 @@ if(transcript == "ايقاف النور")
 
         // here alerat with aduio 
         routineArr = [];
+
         this.setState({
           info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
       })
@@ -1229,8 +1231,10 @@ if(transcript == "ايقاف النور")
     if (routineArr[0] === 'night routine') {
       if (routineArr.length == 5) {
         if (routineArr[1] === 'turnOffLight' || routineArr[1] === 'turnOnLight') {
-          if (routineArr[4] === 'save') {
+          if (routineArr[4] === 'save')
+           {
             this.save_button_action(3);
+
           }
 
         
