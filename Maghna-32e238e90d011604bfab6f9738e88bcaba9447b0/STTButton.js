@@ -818,44 +818,44 @@ if(transcript == "إغلاق النور")
     if (routineArr.length == 2 ){
       if(transcript == "الواحده"){
        // hours = 01
-        routineArr.push(1)
+        routineArr.push('01')
         console.log("onneeee");
     }
      if(transcript == "الثانيه"){
        // hours = 02
-        routineArr.push(2)
+        routineArr.push('02')
     }
 
     if(transcript == "الثالثه"){
         //hours = 03
-        routineArr.push(3)
+        routineArr.push('03')
     }
 
     if(transcript == "الرابعه"){
        // hours = 04
-        routineArr.push(4)
+        routineArr.push('04')
     }
 
      if(transcript == "الخامسه"){
        // hours = 05
-        routineArr.push(5)
+        routineArr.push('05')
     }
     
      if(transcript == "السادسه"){
        // hours = 06
-        routineArr.push(6)
+        routineArr.push('06')
     }
      if(transcript == "السابعه"){
        // hours = 07
-        routineArr.push(7)
+        routineArr.push('07')
     }
      if(transcript == "الثامنه"){
        // hours = 08
-        routineArr.push(8)
+        routineArr.push('08')
     }
       if(transcript == "التاسعه"){
        // hours = 09
-        routineArr.push(9)
+        routineArr.push('09')
         console.log("999")
     }
      if(transcript == "العاشره"){
@@ -1169,7 +1169,7 @@ if(transcript == "إغلاق النور")
     }
     if(transcript == "تماما"){
       //  mins= 59
-       routineArr.push(0) 
+       routineArr.push('00') 
     }
     
     }
