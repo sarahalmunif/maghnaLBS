@@ -1676,8 +1676,8 @@ if(transcript == "ايقاف النور")
         // onPressOut={this.handleOnPressOut}
         >
 
-          {isFetching && <Image source={require('./crop(2).gif')} style={styles.Indicator} />}
-          {!isFetching && <Image source={require('./crop(1).gif')} style={styles.Indicator1} />}
+          {isFetching && <Image source={require('./crop(1).gif')} style={styles.Indicator} />}
+          {!isFetching && <Image source={require('./crop(2).gif')} style={styles.Indicator1} />}
         </View>
         <View>
         <Modal
