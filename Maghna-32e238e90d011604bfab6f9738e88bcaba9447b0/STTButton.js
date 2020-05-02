@@ -864,6 +864,7 @@ if(transcript == "ايقاف النور")
       if(transcript == "التاسعه"){
        // hours = 09
         routineArr.push(9)
+        console.log("nnniinnneee");
     }
      if(transcript == "العاشره"){
       //  hours = 10
@@ -909,6 +910,7 @@ if(transcript == "ايقاف النور")
     if(transcript == "عشرون"){
       // hours = 12
        routineArr.push(20)
+       console.log("222220000")
     }
     
     if(transcript == "الواحده والعشرون"){
