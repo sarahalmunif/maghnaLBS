@@ -86,7 +86,7 @@ class reportScreen extends Component {
             'didFocus',
             async () => {
 
-                this._calcuateConsumptionAndReport();
+                // this._calcuateConsumptionAndReport();
                 console.log(this.state.profile_percent + "Hi component did mount");
             }
         )
