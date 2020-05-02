@@ -86,7 +86,7 @@ function updateRoutine(cond, routineName) {
             }
         });//end forEach
         if (userRoutineArr.indexOf(routineName) == -1) {
-            Alert.alert("عذراً", " لم تقم بإنشاء وضع العودة إلى المنزل من قبل ، عليك أولاً إنشاؤه");
+            Alert.alert("عذراً", " لم تقم بإنشاء  هذا الوضع من قبل ، عليك أولاً إنشاؤه");
         }
     }); //end snapshot..
 

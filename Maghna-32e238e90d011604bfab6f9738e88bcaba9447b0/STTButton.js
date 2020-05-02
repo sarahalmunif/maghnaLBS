@@ -853,43 +853,36 @@ if(transcript == "إغلاق النور")
        // hours = 05
         routineArr.push(5)
     }
-
+    
      if(transcript == "السادسه"){
        // hours = 06
         routineArr.push(6)
     }
-
      if(transcript == "السابعه"){
        // hours = 07
         routineArr.push(7)
     }
-
      if(transcript == "الثامنه"){
        // hours = 08
         routineArr.push(8)
     }
-
       if(transcript == "التاسعه"){
        // hours = 09
         routineArr.push(9)
     }
-
      if(transcript == "العاشره"){
       //  hours = 10
         routineArr.push(10)
     }
-
     if(transcript == "الحاديه عشر"){
        // hours = 11
         routineArr.push(11)
     }
-
     if(transcript == "الثانيه عشر"){
        // hours = 12
         routineArr.push(12)
         console.log("1122222");
     }
-
     if(transcript == "الثالثه عشر"){
       // hours = 12
        routineArr.push(13)
@@ -898,7 +891,6 @@ if(transcript == "إغلاق النور")
       // hours = 12
        routineArr.push(14)
     }
-    
     if(transcript == "الخامسه عشر"){
       // hours = 12
        routineArr.push(15)
@@ -1203,146 +1195,6 @@ if(transcript == "إغلاق النور")
 
 
 
- 
-
-  async routineSpeechValidate(){
-    //This method check if the user uttered everthing in the right sequenc.
-    if(routineArr[0]==='morning routine')
-    {
-      if (routineArr.length == 5 ){
-        if(routineArr[1]==='turnOffLight' ||routineArr[1]==='turnOnLight'  )
-        {
-          if(routineArr[4]==='save')
-          {
-            this.save_button_action(0);
-
-       }
-        else {
-          // here alerat with aduio 
-          routineArr = [];
-          this.setState({
-            info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
-        })
-        this.showSaveModal();
-          // alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
-
-        }
-      }
-      else {
-
-        // here alerat with aduio 
-        routineArr = [];
-
-        this.setState({
-          info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
-      })
-      this.showSaveModal();
-       // alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
-      }
-    }
-  }
-    if (routineArr[0] === 'night routine') {
-      if (routineArr.length == 5) {
-        if (routineArr[1] === 'turnOffLight' || routineArr[1] === 'turnOnLight') {
-          if (routineArr[4] === 'save')
-           {
-            this.save_button_action(3);
-
-          }
-
-        
-        else {
-          // here alerat with aduio 
-          routineArr = [];
-          this.setState({
-            info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
-        })
-        this.showSaveModal();
-          //alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
-        }
-      }
-      else {
-        // here alerat with aduio 
-        routineArr = [];
-        this.setState({
-          info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
-      })
-      this.showSaveModal();
-       // alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
-      }
-    }
-  }
-
-    
-
-      if (routineArr[0] === 'leave routine') {
-        if (routineArr.length == 3) {
-
-          if (routineArr[1] === 'turnOffLight' || routineArr[1] === 'turnOnLight') {
-            if (routineArr[2] === 'save') {
-              this.save_button_action(1);
-            }
-
-          
-          else {
-            // here alerat with aduio 
-            routineArr = [];
-            this.setState({
-              info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
-          })
-          this.showSaveModal();
-            //alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
-          }
-        }
-        else {
-          // here alerat with aduio 
-          routineArr = [];
-          this.setState({
-            info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
-        })
-        this.showSaveModal();
-         // alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
-        }
-      }
-    }
-    if (routineArr[0] === 'back routine') {
-      if (routineArr.length == 3) {
-        if (routineArr[1] === 'turnOffLight' || routineArr[1] === 'turnOnLight') {
-          if (routineArr[2] === 'save') {
-            this.save_button_action(2);
-          }
-
-        
-        else {
-          // here alerat with aduio 
-          routineArr = [];
-          this.setState({
-            info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
-        })
-        this.showSaveModal();
-         // alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
-
-        }
-      }
-      else {
-        // here alerat with aduio 
-        routineArr = [];
-        this.setState({
-          info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
-      })
-      this.showSaveModal();
-        //alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
-
-      }
-    }
-  }
-
-
-
-
-
-  }
-
   save_button_action(index) {
     var lat, lng, i;
 
@@ -1623,6 +1475,146 @@ if(transcript == "إغلاق النور")
 
     }
   }
+
+  async routineSpeechValidate(){
+    //This method check if the user uttered everthing in the right sequenc.
+    if(routineArr[0]==='morning routine')
+    {
+      if (routineArr.length == 5 ){
+        if(routineArr[1]==='turnOffLight' ||routineArr[1]==='turnOnLight'  )
+        {
+          if(routineArr[4]==='save')
+          {
+            this.save_button_action(0);
+
+       }
+        else {
+          // here alerat with aduio 
+          routineArr = [];
+          this.setState({
+            info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
+        })
+        this.showSaveModal();
+          // alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
+
+        }
+      }
+      else {
+
+        // here alerat with aduio 
+        routineArr = [];
+
+        this.setState({
+          info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
+      })
+      this.showSaveModal();
+       // alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
+      }
+    }
+  }
+    if (routineArr[0] === 'night routine') {
+      if (routineArr.length == 5) {
+        if (routineArr[1] === 'turnOffLight' || routineArr[1] === 'turnOnLight') {
+          if (routineArr[4] === 'save')
+           {
+            this.save_button_action(3);
+
+          }
+
+        
+        else {
+          // here alerat with aduio 
+          routineArr = [];
+          this.setState({
+            info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
+        })
+        this.showSaveModal();
+          //alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
+        }
+      }
+      else {
+        // here alerat with aduio 
+        routineArr = [];
+        this.setState({
+          info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
+      })
+      this.showSaveModal();
+       // alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
+      }
+    }
+  }
+
+    
+
+      if (routineArr[0] === 'leave routine') {
+        if (routineArr.length == 3) {
+
+          if (routineArr[1] === 'turnOffLight' || routineArr[1] === 'turnOnLight') {
+            if (routineArr[2] === 'save') {
+              this.save_button_action(1);
+            }
+
+          
+          else {
+            // here alerat with aduio 
+            routineArr = [];
+            this.setState({
+              info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
+          })
+          this.showSaveModal();
+            //alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
+          }
+        }
+        else {
+          // here alerat with aduio 
+          routineArr = [];
+          this.setState({
+            info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
+        })
+        this.showSaveModal();
+         // alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
+        }
+      }
+    }
+    if (routineArr[0] === 'back routine') {
+      if (routineArr.length == 3) {
+        if (routineArr[1] === 'turnOffLight' || routineArr[1] === 'turnOnLight') {
+          if (routineArr[2] === 'save') {
+            this.save_button_action(2);
+          }
+
+        
+        else {
+          // here alerat with aduio 
+          routineArr = [];
+          this.setState({
+            info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
+        })
+        this.showSaveModal();
+         // alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
+
+        }
+      }
+      else {
+        // here alerat with aduio 
+        routineArr = [];
+        this.setState({
+          info:"عذراً\n" + "اتبع نفس الطريقة التي بالتعليمات",
+      })
+      this.showSaveModal();
+        //alert(" عذرا، اتبع نفس الطريقة التي بالتعليمات");
+
+      }
+    }
+  }
+
+
+
+
+
+  }
+
+
 
   startRecording = async () => {
     // console.log(recording)
