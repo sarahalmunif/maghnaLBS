@@ -772,6 +772,9 @@ class SpeechToTextButton extends Component {
       this.props.update(false, 1);
     }
 
+    if(routineArr.length==0){
+
+    
     if (transcript == "الوضع الصباحي") {
       routineArr.push('morning routine');
       console.log(" mmmmmoooorrrning");
@@ -791,10 +794,12 @@ if(transcript == "وضع العوده" ){
   console.log("innnnn");
 
 }
+    }
 //Get the transcript for edit routine
   if(routineArr[0]=='morning routine' || routineArr[0]=='night routine'
    || routineArr[0]=='leave routine' ||routineArr[0]=='back routine')
    {
+     if(routineArr.length==1){
   if(transcript == "تشغيل النور")
 {
   routineArr.push('turnOnLight');
@@ -809,7 +814,7 @@ if(transcript == "إغلاق النور")
   console.log("offff")
 }
   }
-
+   }
   
 
 
