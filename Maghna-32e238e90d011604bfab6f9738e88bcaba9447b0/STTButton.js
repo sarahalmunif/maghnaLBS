@@ -613,6 +613,7 @@ class SpeechToTextButton extends Component {
 
     if (transcript == "تشغيل النور") {
       // did this part linked because this is the trigger to the change of state
+      if(routineArr.length==0){
       if(this.props.lightStatus==true){
         alert("الاضاءه مفتوحه مسبقاً ");
       }
@@ -650,9 +651,11 @@ class SpeechToTextButton extends Component {
         .catch((error) => {
           console.log();
         });
+      }
     }
 
     if (transcript == "اغلاق النور") {
+      if(routineArr.length==0){
 
       if(this.props.lightStatus==false){
         alert("الاضاءه مغلقه مسبقاً");
@@ -687,6 +690,7 @@ class SpeechToTextButton extends Component {
         .catch((error) => {
           // console.log(error);
         });
+      }
     }
     if (transcript == "قراءت التعليمات") {
       this.setState({ TTSInstruction: true });
@@ -808,7 +812,8 @@ if(transcript == "وضع العوده" ){
 
 }
  
-if(transcript == "إغلاق النور")
+if (transcript == "اغلاق النور") 
+
 {
   routineArr.push('turnOffLight');
   console.log("offff")
