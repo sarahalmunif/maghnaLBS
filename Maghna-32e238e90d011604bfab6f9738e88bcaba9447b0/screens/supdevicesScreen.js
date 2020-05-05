@@ -101,7 +101,7 @@ class supdevicesScreen extends Component {
     var lampStatus = this.props.lightStatus;
     if (lampStatus == true) {
        let fileURL = '';
-      const text = ' الأجهزة المُتَّصِلَه ، الإنَارَهْ ، مُتَّصِلَه ';
+      const text = ' الأجهزة المُتَّصِلَه ، الإنَارَهْ ، مَفْتُوْحِهْ ';
 
       axios.post(`http://45.32.251.50`, { text })
         .then(res => {
@@ -114,7 +114,7 @@ class supdevicesScreen extends Component {
 
     else {
       let fileURL = '';
-      const text = ' الأجهزة المُتَّصِلَه ، الإنَارَهْ ،غَيْرْ مُتَّصِلَه ';
+      const text = ' الأجهزة المُتَّصِلَه ، الإنَارَهْ مُغْلَقَهْ  ';
       axios.post(`http://45.32.251.50`, { text })
         .then(res => {
           fileURL = res.data;
