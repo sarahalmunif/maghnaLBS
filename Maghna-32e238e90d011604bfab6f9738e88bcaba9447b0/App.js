@@ -247,7 +247,7 @@ TaskManager.defineTask('locationTask', async ({ data, error }) => {
               if(child.val().name==='come routine')
               {
                   if(child.val().actionsID[0]==='001'){
-
+//Turn on 
                       console.log("the light must be turend on user entern")
                       axios.put('http://192.168.1.23/api/T30IPOP1nrNExNxYSkOdqIok7HjkjaegZxSVvHxR/lights/2/state',
                       {on:true} )
@@ -269,6 +269,8 @@ TaskManager.defineTask('locationTask', async ({ data, error }) => {
 
             }
             if (data.region.state===2){
+              //Turn on 
+              
              // console.log("the light must be turend on user leave before")
                 if(child.val().name==='leave routine' ){
                   console.log("inside leave home")

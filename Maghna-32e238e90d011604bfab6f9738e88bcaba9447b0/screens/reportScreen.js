@@ -18,6 +18,7 @@ import { Audio } from 'expo-av';
 import NavigationService from '../navigation/NavigationService';
 import { connect } from 'react-redux';
 import firebase from 'firebase';
+
 const soundObject = new Audio.Sound();
 class reportScreen extends Component {
 
@@ -49,7 +50,6 @@ class reportScreen extends Component {
 
 
 
-
         var userId = firebase.auth().currentUser.uid;
         //this.state.uID=userId;
         this.setState({ uID: userId })
@@ -60,7 +60,7 @@ class reportScreen extends Component {
 
         let amountValue = 0;
         console.log("user email" + email)
- 
+
 
 
 
@@ -75,8 +75,18 @@ class reportScreen extends Component {
                 });
                 console.log(that.state.amount);
                 that._calcuateConsumptionAndReport();
+                that.getAudio();
+                setTimeout(() => that.sendSpeechNotification(), 12000);
+
+
+
+
+                //  that.sendSpeechNotification();
+
 
             });
+
+
 
         this.didBlurSubscription = this.props.navigation.addListener(
             'didBlur',
@@ -86,8 +96,42 @@ class reportScreen extends Component {
             'didFocus',
             async () => {
 
-            this.getAudio();
-                console.log(this.state.profile_percent + "Hi component did mount");
+                var userId = firebase.auth().currentUser.uid;
+                //this.state.uID=userId;
+                this.setState({ uID: userId })
+                console.log("user id " + userId)
+                //console.log("user id "+uID)
+
+                var email = firebase.auth().currentUser.email;
+
+                let amountValue = 0;
+                console.log("user email" + email)
+
+
+
+
+                var that = this;
+                var firebaseRef = firebase.database().ref('mgnUsers/' + userId);
+                firebaseRef.once('value')
+                    .then(function (snap) {
+                        console.log();
+
+                        that.setState({
+                            amount: snap.val().amount
+                        });
+                        console.log(that.state.amount);
+                        that._calcuateConsumptionAndReport();
+                        that.getAudio();
+                        setTimeout(() => that.sendSpeechNotification(), 12000);
+                        console.log(that.state.profile_percent + "Hi component did mount");
+
+
+                    });
+                // this.sendSpeechNotification();
+
+
+
+
             }
         )
 
@@ -106,10 +150,10 @@ class reportScreen extends Component {
     async pause() {
         await soundObject.pauseAsync()
     }
-    getAudio() {
+    async getAudio() {
         // Read report from calculate total consumption so if there is no consumption no reading check it
 
-        console.log(this.state.profile_percent + "Hi getAudio");
+        console.log(this.state.profile_percent + "<------Hi getAudio");
         let fileURL = '';
         const text = '  عزيزي المُسْتَخْدِم إجْمَالِي إسْتِهْلاكِكْ هُوَ ' + this.state.profile_percent +
             'بِالمِئَة مِن مُجْمَلِ فَاتُورَتِكَ المُدخَلهْ وَتَفْصِيْلْ الْإسْتِهْلاكْ هُوَ  الإنَارَه 100 بِالمِئَة       ';
@@ -123,9 +167,11 @@ class reportScreen extends Component {
                 this.playAudio(fileURL);
 
             })
+
     }
 
     async playAudio(fileURL) {
+        await soundObject.unloadAsync();
 
         await Audio.setAudioModeAsync({
             interruptionModeIOS: Audio.INTERRUPTION_MODE_IOS_DO_NOT_MIX,
@@ -140,6 +186,7 @@ class reportScreen extends Component {
         try {
             await soundObject.loadAsync({ uri: fileURL });
             await soundObject.playAsync();
+
             // Your sound is playing!
         } catch (error) {
             // An error occurred!
@@ -147,14 +194,15 @@ class reportScreen extends Component {
 
     }
 
-    async componentWillUnmount() { await soundObject.unloadAsync();
-
+    async componentWillUnmount() {
+        this.didFocusSubscription.remove();
+        this.didBlurSubscription.remove();
     }
 
     async sendSpeechNotification() {
 
         // Send audio request 
-        if (this.state.profile_percent == 50) {
+        if (this.state.profile_percent >= 50 && this.state.profile_percent <= 79) {
 
             let fileURL = '';
             const text = 'ِعزيزي المُسْتَخْدِم لَقَدْ إستَهْلَكْتْ خَمْسُوووون بِالمِئَةِ مِن مُجْمَلِ فَاتُورَتِكَ المُدخَل';
@@ -169,7 +217,7 @@ class reportScreen extends Component {
                 })
         }
 
-        if (this.state.profile_percent == 80) {
+        if (this.state.profile_percent >= 80 && this.state.profile_percent <= 99) {
 
             let fileURL = '';
             const text = 'ِعزيزي المُسْتَخْدِم لَقَدْ إستَهْلَكْتْ ثَمَانُووون بِالمِئَةِ مِن مُجْمَلِ فَاتُورَتِكَ المُدخَل';
@@ -184,7 +232,7 @@ class reportScreen extends Component {
         }
 
 
-        if (this.state.profile_percent == 100) {
+        if (this.state.profile_percent >= 100) {
 
             let fileURL = '';
             const text = 'ِعزيزي المُسْتَخْدِم لَقَدْ إستَهْلَكْتْ 100 بِالمِئَةِ مِن مُجْمَلِ فَاتُورَتِكَ المُدخَل';
@@ -202,18 +250,20 @@ class reportScreen extends Component {
 
     _calcuateConsumptionAndReport = async () => {
 
-        console.log("Here in calc sate amount: ",this.state.amount);
-         console.log(this.props.currentCount+"calc current time")
+        console.log("Here in calc sate amount: ", this.state.amount);
+        console.log(this.props.currentCount + "calc current time")
         try {
             const curTime = this.props.currentCount;
             const amount = this.state.amount;
+            console.log('------>amount after updte: ' + amount);
+
 
 
             if (amount > 0) {
                 console.log('>>>0');
-                
+
                 // We choose to deal with the seconds as hours but we divide it by 6 for reasonable duration for testing purpose
-                let workingHours = curTime/6;
+                let workingHours = curTime / 6;
                 let bill = amount;
                 let totalConsuming;
                 let watts = 40;
@@ -245,7 +295,6 @@ class reportScreen extends Component {
                     profileColor = '#ff3126';
                 }
                 this.setState({ profile_color: profileColor, profile_percent: totalConsuming }, () => {
-                    this.getAudio(totalConsuming);
                     this.setState({ show_shape: true });
                 });
 
