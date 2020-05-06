@@ -74,9 +74,9 @@ class reportScreen extends Component {
                     amount: snap.val().amount
                 });
                 console.log(that.state.amount);
-                that._calcuateConsumptionAndReport();
-                that.getAudio();
-                setTimeout(() => that.sendSpeechNotification(), 12000);
+                // that._calcuateConsumptionAndReport();
+                // that.getAudio();
+                // setTimeout(() => that.sendSpeechNotification(), 12000);
 
 
 
@@ -122,7 +122,7 @@ class reportScreen extends Component {
                         console.log(that.state.amount);
                         that._calcuateConsumptionAndReport();
                         that.getAudio();
-                        setTimeout(() => that.sendSpeechNotification(), 12000);
+                        setTimeout(() => that.sendSpeechNotification(), 25000);
                         console.log(that.state.profile_percent + "Hi component did mount");
 
 
@@ -155,7 +155,7 @@ class reportScreen extends Component {
 
         console.log(this.state.profile_percent + "<------Hi getAudio");
         let fileURL = '';
-        const text = ' التِقِارِيْرْ عزيزي المُسْتَخْدِم إجْمَالِي إسْتِهْلاكِكْ هُوَ ' + this.state.profile_percent +
+        const text = '  عزيزي المُسْتَخْدِم إجْمَالِي إسْتِهْلاكِكْ هُوَ ' + this.state.profile_percent +
             'بِالمِئَة مِن مُجْمَلِ فَاتُورَتِكَ المُدخَلهْ وَتَفْصِيْلْ الْإسْتِهْلاكْ هُوَ  الإنَارَه 100 بِالمِئَة       ';
 
 
