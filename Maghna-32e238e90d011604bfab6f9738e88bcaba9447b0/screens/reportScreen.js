@@ -122,7 +122,7 @@ class reportScreen extends Component {
                         console.log(that.state.amount);
                         that._calcuateConsumptionAndReport();
                         that.getAudio();
-                        setTimeout(() => that.sendSpeechNotification(), 21000);
+                        // setTimeout(() => that.sendSpeechNotification(), 21000);
                         console.log(that.state.profile_percent + "Hi component did mount");
                     });
                 // this.sendSpeechNotification();
