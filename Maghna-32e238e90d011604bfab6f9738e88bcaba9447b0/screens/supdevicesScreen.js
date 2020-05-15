@@ -101,7 +101,7 @@ class supdevicesScreen extends Component {
     var lampStatus = this.props.lightStatus;
     if (lampStatus == true) {
        let fileURL = '';
-      const text = ' الأجهزة المُتَّصِلَه ، الإنَارَهْ ، مَفْتُوْحِهْ ';
+      const text = ' الأجهزة المُتَّصِلَه ، الإنَارَهْ ، مَفْتُوْحَهْ ';
 
       axios.post(`http://45.32.251.50`, { text })
         .then(res => {
